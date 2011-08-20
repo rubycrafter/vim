@@ -1,0 +1,5 @@
+[yii]
+/home/www/framework**/*.php
+
+[project]
+/home/www/project**/*.php
