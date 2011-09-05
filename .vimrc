@@ -300,8 +300,10 @@ map ,v :tabf ~/.vimrc<cr>
 map <esc><esc> <esc>:q!<cr>
 
 " Сохранение файла
-map <f2> <esc>:retab<cr>:%s/ \+$//ge<cr>:w<cr>:nohl<cr>
-imap <f2> <esc>:retab<cr>:%s/ \+$//ge<cr>:w<cr>:nohl<cr>
+"map <f2> <esc>:retab<cr>:%s/ \+$//ge<cr>:w<cr>:nohl<cr>
+"imap <f2> <esc>:retab<cr>:%s/ \+$//ge<cr>:w<cr>:nohl<cr>
+map <f2> <esc>:retab<cr>:w<cr>:nohl<cr>
+imap <f2> <esc>:retab<cr>:w<cr>:nohl<cr>
 
 " Запуск python приложений по F5
 "imap <silent> <f5> <Esc>:w\|!python %<cr>
@@ -364,9 +366,9 @@ vmap <f3> <esc>:NERDTreeToggle /home/www/<cr>
 imap <f3> <esc>:NERDTreeToggle /home/www/<cr>
 
 " Список буферов
-nmap <f4> <esc>:BufExplorer<cr>
-imap <f4> <esc>:BufExplorer<cr>
-vmap <f4> <esc>:BufExplorer<cr>
+"nmap <f4> <esc>:BufExplorer<cr>
+"imap <f4> <esc>:BufExplorer<cr>
+"vmap <f4> <esc>:BufExplorer<cr>
 
 " Комментирование кода
 nmap <c-\> ,ci
@@ -379,6 +381,9 @@ map <c-s-up> ddkP
 
 " Фикс Ctrl+t
 nmap <c-t> <c-rightmouse>
+
+" Запуск модульных тестов
+map <silent> <f4> :!cd /home/www/timlar.org/protected/tests/ && phpunit -c phpunit-frontend.xml unit/%<cr>
 
 " Выключение подсветки поиска
 map <silent> <leader>h <esc>:nohl<cr>:echo "Подсветка выключена!"<cr>
