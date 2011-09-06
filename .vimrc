@@ -300,10 +300,10 @@ map ,v :tabf ~/.vimrc<cr>
 map <esc><esc> <esc>:q!<cr>
 
 " Сохранение файла
-"map <f2> <esc>:retab<cr>:%s/ \+$//ge<cr>:w<cr>:nohl<cr>
-"imap <f2> <esc>:retab<cr>:%s/ \+$//ge<cr>:w<cr>:nohl<cr>
-map <f2> <esc>:retab<cr>:w<cr>:nohl<cr>
-imap <f2> <esc>:retab<cr>:w<cr>:nohl<cr>
+map <f2> <esc>:w<cr>
+imap <f2> <esc>:w<cr>
+map <s-f2> <esc>:retab<cr>:1,$s/[ ]\+$//e<cr>:w<cr>:nohl<cr>
+imap <s-f2> <esc>:retab<cr>:1,$s/[ ]\+$//e<cr>:w<cr>:nohl<cr>
 
 " Запуск python приложений по F5
 "imap <silent> <f5> <Esc>:w\|!python %<cr>
@@ -381,9 +381,6 @@ map <c-s-up> ddkP
 
 " Фикс Ctrl+t
 nmap <c-t> <c-rightmouse>
-
-" Запуск модульных тестов
-map <silent> <f4> :!cd /home/www/timlar.org/protected/tests/ && phpunit -c phpunit-frontend.xml unit/%<cr>
 
 " Выключение подсветки поиска
 map <silent> <leader>h <esc>:nohl<cr>:echo "Подсветка выключена!"<cr>
