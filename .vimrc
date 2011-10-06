@@ -35,7 +35,7 @@ if has("gui_running")
     set antialias
 
     " Опции сессии
-    set sessionoptions=curdir,buffers,tabpages
+    set sessionoptions=curdir,buffers,tabpages ",resize,winpos,winsize
 
     " Сохранение сессии
     autocmd VimLeavePre * silent mksession! ~/.vim/lastSession.vim
@@ -85,9 +85,14 @@ set number
 set nowrap
 
 " Фолдинг
-set nofoldenable
-set foldmethod=marker
-set foldmarker={,}
+set foldenable
+"set foldmethod=indent
+"set foldmethod=marker
+"set foldmarker={,}
+
+" Сохранение и восстановление фолдинга
+au BufWinLeave * silent! mkview
+au BufWinEnter * silent! loadview
 
 " Включение поддержки мыши
 set mouse=a
@@ -294,7 +299,10 @@ set pastetoggle=<s-f2>
 " --------------------------
 
 " Открытие конфига по ,v
-map ,v :tabf ~/.vimrc<cr>
+map <silent><leader>v :tabf ~/.vimrc<cr>
+
+" Обновление сниппетов
+map <silent><leader>sm :call ReloadAllSnippets()<cr>:echo "Сниппеты перезагружены"<cr>
 
 " Выход из редактора по двойному Esc
 map <esc><esc> <esc>:q!<cr>
@@ -308,6 +316,12 @@ imap <s-f2> <esc>:retab<cr>:1,$s/[ ]\+$//e<cr>:w<cr>:nohl<cr>
 " Запуск python приложений по F5
 "imap <silent> <f5> <Esc>:w\|!python %<cr>
 "nmap <silent> <f5> :w\|!python %<cr>
+
+" Проверка орфиграфии
+map <s-f1> <esc>:setlocal spell spelllang=ru<cr>
+imap <s-f1> <esc>:setlocal spell spelllang=ru<cr>i
+map <c-s-f1> <esc>:setlocal spell spelllang=<cr>
+imap <c-s-f1> <esc>:setlocal spell spelllang=<cr>i
 
 " Исправление форматирования при вставке по Ctrl+u
 inoremap <silent> <c-u> <Esc>u:set paste<cr>.:set nopaste<cr>gi
@@ -383,10 +397,10 @@ map <c-s-up> ddkP
 nmap <c-t> <c-rightmouse>
 
 " Выключение подсветки поиска
-map <silent> <leader>h <esc>:nohl<cr>:echo "Подсветка выключена!"<cr>
+map <silent><leader>h <esc>:nohl<cr>:echo "Подсветка выключена!"<cr>
 
 " Сортировка css свойств
-noremap <silent><leader>s <esc>vi{:!sort<cr>:echo "Свойства css отсортированы!"<cr>
+noremap <silent><leader>ss <esc>vi{:!sort<cr>:echo "Свойства css отсортированы!"<cr>
 
 " Форматирование css
 noremap <silent><leader>ct <esc>:%!~/.vim/plugin/cssformatter.py<cr>:echo "Свойства css отформатированы!"<cr>
@@ -470,3 +484,4 @@ endfunction
 
 set tabline=%!MyTabLine()
 set guitablabel=%!MyGuiTabLabel()
+

@@ -1,21 +1,20 @@
 snippet php
-	<?php
-	${1}
-snippet phpe
-	<?php echo ${1} ?>
+	<?php ${1} ?>
+snippet echo
+	<?= ${1} ?>
 # $GLOBALS['...']
 snippet global
 	$GLOBALS['${1:variable}']${2: = }${3:something}${4:;}${5}
+snippet $_ POST['...']
+	$_POST['${1:variable}']${2}
+snippet $_ GET['...']
+	$_GET['${1:variable}']${2}
 snippet $_ COOKIE['...']
 	$_COOKIE['${1:variable}']${2}
 snippet $_ ENV['...']
 	$_ENV['${1:variable}']${2}
 snippet $_ FILES['...']
 	$_FILES['${1:variable}']${2}
-snippet $_ Get['...']
-	$_GET['${1:variable}']${2}
-snippet $_ POST['...']
-	$_POST['${1:variable}']${2}
 snippet $_ REQUEST['...']
 	$_REQUEST['${1:variable}']${2}
 snippet $_ SERVER['...']
@@ -45,6 +44,10 @@ snippet fun
 		${4:// code...}
 	}
 snippet d
-	dump(${1}, ${2:2}); ${3}
+	dump(${1}, ${2:2});
 snippet di
 	die();
+snippet yt
+	<?= Yii::t('${1}', '${2}') ?>
+snippet com
+	<!-- ${1} -->
