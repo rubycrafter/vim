@@ -213,6 +213,9 @@ set complete+=b
 set wildmenu
 set wildmode=list:longest,full
 
+" При подсвечивании не переходить к следующему результату
+nnoremap * *N
+
 " Отключение подсветки парных скобок
 let loaded_matchparen = 1
 
@@ -395,6 +398,9 @@ map <c-s-up> ddkP
 
 " Фикс Ctrl+t
 nmap <c-t> <c-rightmouse>
+
+" В визуальном режиме по команде * подсвечивать выделение
+vnoremap * y :execute ":let @/=@\""<CR> :execute "set hlsearch"<CR>
 
 " Выключение подсветки поиска
 map <silent><leader>h <esc>:nohl<cr>:echo "Подсветка выключена!"<cr>
