@@ -1,6 +1,6 @@
-snippet php
-	<?php ${1} ?>
-snippet echo
+snippet p
+	<? ${1} ?>
+snippet e
 	<?= ${1} ?>
 # $GLOBALS['...']
 snippet global
@@ -39,15 +39,17 @@ snippet cla
 		}
 	}
 snippet fun
-	${1:public }function ${2:functionName}(${3})
+	${1:public }${2:static }function ${3:functionName}(${4})
 	{
-		${4:// code...}
+		${5}
 	}
 snippet d
-	dump(${1}, ${2:2});
+	dump(${1});
+snippet dd
+	dump(${1}); die();
 snippet di
 	die();
 snippet yt
-	<?= Yii::t('${1}', '${2}') ?>
+	Yii::t('${1}', '${2}')
 snippet com
 	<!-- ${1} -->

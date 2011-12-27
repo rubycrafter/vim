@@ -1,3 +1,4 @@
+"
 " Конфигурация vim
 " Автор: Дмитрий Гречуха (dmitriy.grechukha@gmail.com)
 "
@@ -30,6 +31,8 @@ if has("gui_running")
     set guioptions-=T
     " Отключаем левый скролл
     set guioptions-=L
+    " Отключаем меню
+    set guioptions-=m
 
     "Антиалиасинг для шрифтов
     set antialias
@@ -91,8 +94,8 @@ set foldenable
 "set foldmarker={,}
 
 " Сохранение и восстановление фолдинга
-au BufWinLeave * silent! mkview
-au BufWinEnter * silent! loadview
+"au BufWinLeave * silent! mkview
+"au BufWinEnter * silent! loadview
 
 " Включение поддержки мыши
 set mouse=a
@@ -119,8 +122,7 @@ set hlsearch
 " Использование инкрементного поиска
 set incsearch
 
-" Формат строки состояния
-set statusline=%<%f%h%m%r\ %b\ %{&encoding}\ 0x\ \ %l,%c%V\ %P
+" Всегда отображать командную строку
 set laststatus=2
 
 " Включение X clipboard
@@ -213,6 +215,12 @@ set complete+=b
 set wildmenu
 set wildmode=list:longest,full
 
+" Не переносить комментарий при нажатии o/O
+set formatoptions-=o
+
+" Включает флаг g в командах замены
+set gdefault
+
 " При подсвечивании не переходить к следующему результату
 nnoremap * *N
 
@@ -221,6 +229,8 @@ let loaded_matchparen = 1
 
 set autochdir
 let NERDTreeChDirMode=2
+let NERDTreeMinimalUI=1
+let NERDTreeDirArrows=1
 
 if has("gui_running")
     " Подсвечивать текущую строку в GUI режиме
@@ -292,6 +302,24 @@ endif
 let g:user_zen_settings = { 'indentation' : '    ' }
 let g:use_zen_complete_tag = 1
 
+" VimWiki
+let wiki = {}
+let wiki.path = '~/.vim/wiki/'
+let wiki.nested_syntaxes = {'python': 'python', 'php': 'php', 'css': 'css', 'javascript': 'javascript', 'html': 'html', 'mysql': 'mysql'}
+let g:vimwiki_list = [wiki]
+let g:vimwiki_camel_case = 0
+let g:vimwiki_browsers = ['google-chrome']
+let g:vimwiki_html_header_numbering = 2
+"let g:vimwiki_stripsym = '-'
+"let g:vimwiki_badsyms = ' '
+
+:hi VimwikiHeader1 guifg=#FF0000
+:hi VimwikiHeader2 guifg=#00FF00
+:hi VimwikiHeader3 guifg=#FF00FF
+:hi VimwikiHeader4 guifg=#00FFFF
+:hi VimwikiHeader5 guifg=#FFFF00
+:hi VimwikiHeader6 guifg=#FFFFFF
+
 " Включение режима вклейки
 set pastetoggle=<s-f2>
 
@@ -321,20 +349,20 @@ imap <s-f2> <esc>:retab<cr>:1,$s/[ ]\+$//e<cr>:w<cr>:nohl<cr>
 "nmap <silent> <f5> :w\|!python %<cr>
 
 " Проверка орфиграфии
-map <s-f1> <esc>:setlocal spell spelllang=ru<cr>
-imap <s-f1> <esc>:setlocal spell spelllang=ru<cr>i
-map <c-s-f1> <esc>:setlocal spell spelllang=<cr>
-imap <c-s-f1> <esc>:setlocal spell spelllang=<cr>i
+map <s-f1> <esc>:setlocal spell spelllang=ru<cr>:echo "Проверка орфографии включена."<cr>
+imap <s-f1> <esc>:setlocal spell spelllang=ru<cr>i:echo "Проверка орфографии включена."<cr>
+map <c-s-f1> <esc>:setlocal spell spelllang=<cr>:echo "Проверка орфографии отключена."<cr>
+imap <c-s-f1> <esc>:setlocal spell spelllang=<cr>i:echo "Проверка орфографии отключена."<cr>
 
 " Исправление форматирования при вставке по Ctrl+u
 inoremap <silent> <c-u> <Esc>u:set paste<cr>.:set nopaste<cr>gi
 
-" Предыдущая вкладка Shift+Tab
+" Предыдущая вкладка
 map <c-pageup> :tabp<cr>
 nmap <c-pageup> :tabp<cr>
 imap <c-pageup> <esc>:tabp<cr>i
 
-" Следующая вкладка Сtrl+Tab
+" Следующая вкладка
 map <c-pagedown> :tabn<cr>
 nmap <c-pagedown> :tabn<cr>
 imap <c-pagedown> <esc>:tabn<cr>i
@@ -396,8 +424,39 @@ imap <c-\> <esc>,cii
 map <c-s-down> ddp
 map <c-s-up> ddkP
 
+" Отключение стрелок
+"inoremap <Up> <NOP>
+"inoremap <Down> <NOP>
+"inoremap <Left> <NOP>
+"inoremap <Right> <NOP>
+"noremap <Up> <NOP>
+"noremap <Down> <NOP>
+"noremap <Left> <NOP>
+"noremap <Right> <NOP>
+" Позволяем передвигаться с помощью hjkl в Insert mode зажав <Ctrl>
+imap <c-h> <c-o>h
+imap <c-j> <c-o>j
+imap <c-k> <c-o>k
+imap <c-l> <c-o>l
+
+" Результаты поиска всегда в центре
+nmap n nzz
+nmap N Nzz
+nmap * *zz
+nmap # #zz
+nmap g* g*zz
+nmap g# g#zz
+
+" Создаем пустой сплит относительно текущего
+nmap <leader><left>  :leftabove  vnew<cr>
+nmap <leader><right> :rightbelow vnew<cr>
+nmap <leader><up>    :leftabove  new<cr>
+nmap <leader><down>  :rightbelow new<cr>
+
 " Фикс Ctrl+t
 nmap <c-t> <c-rightmouse>
+
+inoremap <c-space> <c-n>
 
 " В визуальном режиме по команде * подсвечивать выделение
 vnoremap * y :execute ":let @/=@\""<CR> :execute "set hlsearch"<CR>
@@ -423,6 +482,40 @@ vnoremap <c-p> :call PhpDocRange()<cr>
 " --------------------------
 "  Различные настройки
 " --------------------------
+
+" Переключение true/false
+:nore <expr> <leader><leader> expand('<cword>') ==# 'true' ? "ciwfalse\<Esc>" :
+      \ (expand('<cword>') ==# 'false' ? "ciwtrue\<Esc>" : '')
+
+
+" Строка состояния
+
+function! FileSize()
+    let bytes = getfsize(expand("%:p"))
+    if bytes <= 0
+        return "-"
+    endif
+    if bytes < 1024
+        return bytes . " B"
+    else
+        return (bytes / 1024) . " K"
+    endif
+endfunction
+
+set statusline=
+set statusline+=%(\ %m%)            " флаг 'файл изменен'
+set statusline+=\ %y                " тип
+set statusline+=\ %{&ff}            " формат
+set statusline+=\ %{&fileencoding}  " кодировка
+set statusline+=\ %F                " полный путь
+set statusline+=\ %{FileSize()}     " размер
+set statusline+=\ %r                " флаг 'только для чтения'
+set statusline+=%=                  " разделитель лево/право
+set statusline+=%l/%L               " текущая строка / всего строк
+set statusline+=\ %c                " текущая колонка
+set statusline+=\ %p%%              " текущая колонка позиция в файле
+set statusline+=\                   " текущая колонка пробел вконце
+
 
 " Автоматическая установка chmod a+x при сохранении скриптов
 function! ModeChange()
