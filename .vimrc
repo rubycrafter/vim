@@ -57,6 +57,9 @@ set listchars=tab:→→,trail:·,nbsp:·
 " Включение дополнительных цветов
 set t_Co=256
 
+" Отключение звукового уведомления
+set visualbell t_vb=
+
 " Языковые установки
 set keymap=russian-jcukenwin
 set helplang=ru
@@ -229,7 +232,7 @@ let loaded_matchparen = 1
 
 set autochdir
 let NERDTreeChDirMode=2
-let NERDTreeMinimalUI=1
+"let NERDTreeMinimalUI=1
 let NERDTreeDirArrows=1
 
 if has("gui_running")
