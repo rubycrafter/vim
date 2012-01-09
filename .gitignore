@@ -2,4 +2,5 @@
 wiki/
 view/
 .indexer_files
+.netrwhist
 lastSession.vim
