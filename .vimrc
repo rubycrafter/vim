@@ -310,8 +310,6 @@ let g:vimwiki_list = [wiki]
 let g:vimwiki_camel_case = 0
 let g:vimwiki_browsers = ['google-chrome']
 let g:vimwiki_html_header_numbering = 2
-"let g:vimwiki_stripsym = '-'
-"let g:vimwiki_badsyms = ' '
 
 :hi VimwikiHeader1 guifg=#FF0000
 :hi VimwikiHeader2 guifg=#00FF00
@@ -345,8 +343,8 @@ map <s-f2> <esc>:retab<cr>:1,$s/[ ]\+$//e<cr>:w<cr>:nohl<cr>
 imap <s-f2> <esc>:retab<cr>:1,$s/[ ]\+$//e<cr>:w<cr>:nohl<cr>
 
 " Запуск python приложений по F5
-"imap <silent> <f5> <Esc>:w\|!python %<cr>
-"nmap <silent> <f5> :w\|!python %<cr>
+imap <silent> <f5> <f2><esc>:w\|!python2.7 %<cr>
+nmap <silent> <f5> <f2>:w\|!python2.7 %<cr>
 
 " Проверка орфиграфии
 map <s-f1> <esc>:setlocal spell spelllang=ru<cr>:echo "Проверка орфографии включена."<cr>
@@ -372,7 +370,7 @@ nnoremap <silent> <a-left> :execute 'silent! tabmove ' . (tabpagenr()-2)<cr>
 nnoremap <silent> <a-right> :execute 'silent! tabmove ' . tabpagenr()<cr>
 
 " Копирование и вставка в глобальный клипбоард
-vmap <c-insert> "+yi
+vmap <c-insert> "+y
 nmap <s-insert> "+gP
 imap <s-insert> <c-r>+
 
@@ -433,19 +431,12 @@ map <c-s-up> ddkP
 "noremap <Down> <NOP>
 "noremap <Left> <NOP>
 "noremap <Right> <NOP>
+
 " Позволяем передвигаться с помощью hjkl в Insert mode зажав <Ctrl>
 imap <c-h> <c-o>h
 imap <c-j> <c-o>j
 imap <c-k> <c-o>k
 imap <c-l> <c-o>l
-
-" Результаты поиска всегда в центре
-nmap n nzz
-nmap N Nzz
-nmap * *zz
-nmap # #zz
-nmap g* g*zz
-nmap g# g#zz
 
 " Создаем пустой сплит относительно текущего
 nmap <leader><left>  :leftabove  vnew<cr>
@@ -459,7 +450,7 @@ nmap <c-t> <c-rightmouse>
 inoremap <c-space> <c-n>
 
 " В визуальном режиме по команде * подсвечивать выделение
-vnoremap * y :execute ":let @/=@\""<CR> :execute "set hlsearch"<CR>
+vnoremap * y :execute ":let @/=@\""<cr> :execute "set hlsearch"<cr>
 
 " Выключение подсветки поиска
 map <silent><leader>h <esc>:nohl<cr>:echo "Подсветка выключена!"<cr>
@@ -513,19 +504,8 @@ set statusline+=\ %r                " флаг 'только для чтения
 set statusline+=%=                  " разделитель лево/право
 set statusline+=%l/%L               " текущая строка / всего строк
 set statusline+=\ %c                " текущая колонка
-set statusline+=\ %p%%              " текущая колонка позиция в файле
-set statusline+=\                   " текущая колонка пробел вконце
-
-
-" Автоматическая установка chmod a+x при сохранении скриптов
-function! ModeChange()
-if getline(1) =~ "^#!"
-if getline(1) =~ "/bin/"
-    silent !chmod a+x <afile>
-endif
-endif
-endfunction
-au BufWritePost * call ModeChange()
+set statusline+=\ %p%%              " позиция в файле
+set statusline+=\                   " пробел вконце
 
 
 " Задаем собственные функции для назначения имен заголовкам табов -->
