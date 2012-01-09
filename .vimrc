@@ -57,9 +57,6 @@ set listchars=tab:→→,trail:·,nbsp:·
 " Включение дополнительных цветов
 set t_Co=256
 
-" Отключение звукового уведомления
-set visualbell t_vb=
-
 " Языковые установки
 set keymap=russian-jcukenwin
 set helplang=ru
@@ -222,7 +219,7 @@ set wildmode=list:longest,full
 set formatoptions-=o
 
 " Включает флаг g в командах замены
-set gdefault
+"set gdefault
 
 " При подсвечивании не переходить к следующему результату
 nnoremap * *N
@@ -232,7 +229,6 @@ let loaded_matchparen = 1
 
 set autochdir
 let NERDTreeChDirMode=2
-"let NERDTreeMinimalUI=1
 let NERDTreeDirArrows=1
 
 if has("gui_running")
@@ -271,6 +267,18 @@ au FileType css set omnifunc=csscomplete#CompleteC
 "au CursorMovedI,InsertLeave * if pumvisible() == 0|silent! pclose|endif
 au CursorMovedI,InsertLeave * silent! pclose
 
+" Автокоммит при сохранении wiki-файлов
+function! s:commit_wiki()
+    let l:path = VimwikiGet('path')
+    execute 'cd'.l:path
+    "let l:output = system("git init")
+    let l:output = system("git add *.wiki")
+    let l:output = system("git commit -am 'auto update'")
+    let l:output = system("git pull origin master")
+    let l:output = system("git push origin master")
+endfunction
+au BufWritePost,FileWritePost,FileAppendPost *.wiki call <SID>commit_wiki()
+
 " Автодополнение по табу
 "let g:SuperTabDefaultCompletionType = '<C-X><C-O>'
 "let g:SuperTabDefaultCompletionType = 'context'
@@ -302,7 +310,7 @@ if has("gui_running")
 endif
 
 " Настройки ZenCoding'а
-let g:user_zen_settings = { 'indentation' : '    ' }
+let g:user_zen_settings = {'indentation': '    '}
 let g:use_zen_complete_tag = 1
 
 " VimWiki
@@ -358,6 +366,12 @@ imap <c-s-f1> <esc>:setlocal spell spelllang=<cr>i:echo "Проверка орф
 " Исправление форматирования при вставке по Ctrl+u
 inoremap <silent> <c-u> <Esc>u:set paste<cr>.:set nopaste<cr>gi
 
+" Фикс Ctrl+t
+nmap <c-t> <c-rightmouse>
+
+" Новая вкладка
+nmap <s-T> :tabnew<cr>
+
 " Предыдущая вкладка
 map <c-pageup> :tabp<cr>
 nmap <c-pageup> :tabp<cr>
@@ -392,7 +406,7 @@ vmap <leader>a= :Tabularize /=<cr>
 vmap <leader>a: :Tabularize /:<cr>
 vmap <leader>a> :Tabularize /=><cr>
 
-" По нажатию Enter переводить строку в визуальном режиме
+" По нажатию Enter переводить строку в нормальном режиме
 nmap <cr> O<down><esc>
 nmap <s-cr> O<down><esc>
 
@@ -410,11 +424,6 @@ imap <c-right> <esc><c-w><c-right>
 nmap <f3> :NERDTreeToggle /home/www/<cr>
 vmap <f3> <esc>:NERDTreeToggle /home/www/<cr>
 imap <f3> <esc>:NERDTreeToggle /home/www/<cr>
-
-" Список буферов
-"nmap <f4> <esc>:BufExplorer<cr>
-"imap <f4> <esc>:BufExplorer<cr>
-"vmap <f4> <esc>:BufExplorer<cr>
 
 " Комментирование кода
 nmap <c-\> ,ci
@@ -442,14 +451,12 @@ imap <c-k> <c-o>k
 imap <c-l> <c-o>l
 
 " Создаем пустой сплит относительно текущего
-nmap <leader><left>  :leftabove  vnew<cr>
+nmap <leader><left> :leftabove vnew<cr>
 nmap <leader><right> :rightbelow vnew<cr>
-nmap <leader><up>    :leftabove  new<cr>
-nmap <leader><down>  :rightbelow new<cr>
+nmap <leader><up> :leftabove new<cr>
+nmap <leader><down> :rightbelow new<cr>
 
-" Фикс Ctrl+t
-nmap <c-t> <c-rightmouse>
-
+" Автодополнение слова
 inoremap <c-space> <c-n>
 
 " В визуальном режиме по команде * подсвечивать выделение
