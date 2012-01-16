@@ -227,7 +227,7 @@ nnoremap * *N
 " Отключение подсветки парных скобок
 let loaded_matchparen = 1
 
-set autochdir
+set noautochdir
 let NERDTreeChDirMode=2
 let NERDTreeDirArrows=1
 
@@ -334,6 +334,10 @@ set pastetoggle=<s-f2>
 
 
 
+set ttyfast
+
+
+
 " --------------------------
 "   Хоткеи
 " --------------------------
@@ -354,8 +358,12 @@ map <s-f2> <esc>:retab<cr>:1,$s/[ ]\+$//e<cr>:w<cr>:nohl<cr>
 imap <s-f2> <esc>:retab<cr>:1,$s/[ ]\+$//e<cr>:w<cr>:nohl<cr>
 
 " Запуск python приложений по F5
-imap <silent> <f5> <f2><esc>:w\|!python2.7 %<cr>
-nmap <silent> <f5> <f2>:w\|!python2.7 %<cr>
+"imap <silent><f5> <f2><esc>:w\|!python2.7 %<cr>
+"nmap <silent><f5> <f2>:w\|!python2.7 %<cr>
+
+" Запуск unit-теста
+imap <silent><f5> <esc>:w<cr>:!cd %:p:h/../ && phpunit %:p<cr>
+nmap <silent><f5> :w<cr>:!cd %:p:h/../ && phpunit %:p<cr>
 
 " Проверка орфиграфии
 map <s-f1> <esc>:setlocal spell spelllang=ru<cr>:echo "Проверка орфографии включена."<cr>
@@ -370,7 +378,7 @@ inoremap <silent> <c-u> <Esc>u:set paste<cr>.:set nopaste<cr>gi
 nmap <c-t> <c-rightmouse>
 
 " Новая вкладка
-nmap <s-T> :tabnew<cr>
+nmap tn :tabnew<cr>
 
 " Предыдущая вкладка
 map <c-pageup> :tabp<cr>
