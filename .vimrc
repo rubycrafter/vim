@@ -366,42 +366,37 @@ imap <s-f2> <esc>:retab<cr>:1,$s/[ ]\+$//e<cr>:w<cr>:nohl<cr>
 
 " Запуск unit-теста
 function! RunUnitTest()
-    let path = substitute(expand('%:p'), 'unit.*$', '', 'g')
-    let file = substitute(expand('%:p'), '^.*tests/', '', 'g')
-    let output = system('cd '.path.' && phpunit '.file)
+    let l:path = substitute(expand('%:p'), 'unit.*$', '', 'g')
+    let l:file = substitute(expand('%:p'), '^.*tests/', '', 'g')
+    let l:output = system('cd '.l:path.' && phpunit '.l:file)
 
-    if exists('g:unit_buffer') && bufexists(g:unit_buffer)
-        let unit_win = bufwinnr(g:unit_buffer)
+    silent execute ':pedit! PHPUnit'
 
-        if unit_win > 0
-            execute unit_win . 'wincmd w'
-        else
-            execute 'sb '.g:unit_buffer
-        endif
+    wincmd P
 
-        setlocal modifiable
-        silent %d
-    else
-        new
-        let g:unit_buffer=bufnr('%')
-    endif
+    setlocal buftype=nofile
+    setlocal bufhidden=hide
+    setlocal modifiable
 
-    setlocal buftype=nofile modifiable bufhidden=hide
+    "silent execute '!cd '.path.' && phpunit '.file
+    silent put = l:output
 
-    silent put = output
+    silent execute 'resize '.line('$')
 
-    call matchadd('PhpUnitFail','^FAILURES.*$')
-    call matchadd('PhpUnitOK','^OK .*$')
-    call matchadd('PhpUnitAssertFail','^Failed asserting.*$')
+    call matchadd('PHPUnitFail', '^FAILURES.*$')
+    call matchadd('PHPUnitOK', '^OK .*$')
+    call matchadd('PHPUnitAssertFail', '^Failed asserting.*$')
 
     setlocal nomodifiable
 
-    execute 'wincmd k'
+    execute 'normal gg'
+
+    echo 'Тест завершен.'
 endfunction
 
-highlight default PhpUnitFail ctermbg=Red ctermfg=White guibg=Red guifg=White
-highlight default PhpUnitOK ctermbg=LightGreen ctermfg=White guibg=DarkGreen guifg=White
-highlight default PhpUnitAssertFail ctermfg=LightRed guifg=Red
+highlight default PHPUnitFail ctermbg=Red ctermfg=White guibg=Red guifg=White
+highlight default PHPUnitOK term=bold ctermbg=LightGreen ctermfg=White guibg=DarkGreen guifg=White
+highlight default PHPUnitAssertFail term=bold ctermfg=LightRed guifg=Red
 
 imap <silent><f5> <esc>:w<cr>:call RunUnitTest()<cr>
 nmap <silent><f5> <esc>:w<cr>:call RunUnitTest()<cr>
