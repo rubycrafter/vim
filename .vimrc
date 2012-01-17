@@ -361,9 +361,53 @@ imap <s-f2> <esc>:retab<cr>:1,$s/[ ]\+$//e<cr>:w<cr>:nohl<cr>
 "imap <silent><f5> <f2><esc>:w\|!python2.7 %<cr>
 "nmap <silent><f5> <f2>:w\|!python2.7 %<cr>
 
+
+
+
 " Запуск unit-теста
-imap <silent><f5> <esc>:w<cr>:!cd %:p:h/../ && phpunit %:p<cr>
-nmap <silent><f5> :w<cr>:!cd %:p:h/../ && phpunit %:p<cr>
+function! RunUnitTest()
+    let path = substitute(expand('%:p'), 'unit.*$', '', 'g')
+    let file = substitute(expand('%:p'), '^.*tests/', '', 'g')
+    let output = system('cd '.path.' && phpunit '.file)
+
+    if exists('g:unit_buffer') && bufexists(g:unit_buffer)
+        let unit_win = bufwinnr(g:unit_buffer)
+
+        if unit_win > 0
+            execute unit_win . 'wincmd w'
+        else
+            execute 'sb '.g:unit_buffer
+        endif
+
+        setlocal modifiable
+        silent %d
+    else
+        new
+        let g:unit_buffer=bufnr('%')
+    endif
+
+    setlocal buftype=nofile modifiable bufhidden=hide
+
+    silent put = output
+
+    call matchadd('PhpUnitFail','^FAILURES.*$')
+    call matchadd('PhpUnitOK','^OK .*$')
+    call matchadd('PhpUnitAssertFail','^Failed asserting.*$')
+
+    setlocal nomodifiable
+
+    execute 'wincmd k'
+endfunction
+
+highlight default PhpUnitFail ctermbg=Red ctermfg=White guibg=Red guifg=White
+highlight default PhpUnitOK ctermbg=LightGreen ctermfg=White guibg=DarkGreen guifg=White
+highlight default PhpUnitAssertFail ctermfg=LightRed guifg=Red
+
+imap <silent><f5> <esc>:w<cr>:call RunUnitTest()<cr>
+nmap <silent><f5> <esc>:w<cr>:call RunUnitTest()<cr>
+
+
+
 
 " Проверка орфиграфии
 map <s-f1> <esc>:setlocal spell spelllang=ru<cr>:echo "Проверка орфографии включена."<cr>
