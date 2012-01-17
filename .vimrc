@@ -366,11 +366,17 @@ imap <s-f2> <esc>:retab<cr>:1,$s/[ ]\+$//e<cr>:w<cr>:nohl<cr>
 
 " Запуск unit-теста
 function! RunUnitTest()
+    if &previewwindow
+        bdelete
+        pclose
+        return
+    endif
+
     let l:path = substitute(expand('%:p'), 'unit.*$', '', 'g')
     let l:file = substitute(expand('%:p'), '^.*tests/', '', 'g')
     let l:output = system('cd '.l:path.' && phpunit '.l:file)
 
-    silent execute ':pedit! PHPUnit'
+    silent pedit! 'PHPUnit'
 
     wincmd P
 
@@ -378,11 +384,15 @@ function! RunUnitTest()
     setlocal bufhidden=hide
     setlocal modifiable
 
-    "silent execute '!cd '.path.' && phpunit '.file
     silent put = l:output
+
+    execute ':1d'
+    execute ':2,3d'
 
     silent execute 'resize '.line('$')
 
+    call matchadd('PHPUnitBold', '^PHPUnit.*$')
+    call matchadd('PHPUnitBold', '^There was.*failure.*$')
     call matchadd('PHPUnitFail', '^FAILURES.*$')
     call matchadd('PHPUnitOK', '^OK .*$')
     call matchadd('PHPUnitAssertFail', '^Failed asserting.*$')
@@ -391,15 +401,16 @@ function! RunUnitTest()
 
     execute 'normal gg'
 
-    echo 'Тест завершен.'
+    echo 'Тест завершен!'
 endfunction
 
-highlight default PHPUnitFail ctermbg=Red ctermfg=White guibg=Red guifg=White
-highlight default PHPUnitOK term=bold ctermbg=LightGreen ctermfg=White guibg=DarkGreen guifg=White
-highlight default PHPUnitAssertFail term=bold ctermfg=LightRed guifg=Red
+highlight default PHPUnitBold term=bold gui=bold
+highlight default PHPUnitFail term=bold gui=bold ctermbg=Red ctermfg=White guibg=Red guifg=White
+highlight default PHPUnitOK term=bold gui=bold ctermbg=DarkGreen ctermfg=White guibg=DarkGreen guifg=White
+highlight default PHPUnitAssertFail ctermfg=Red guifg=Red
 
-imap <silent><f5> <esc>:w<cr>:call RunUnitTest()<cr>
-nmap <silent><f5> <esc>:w<cr>:call RunUnitTest()<cr>
+imap <silent><f5> <esc>:call RunUnitTest()<cr>
+nmap <silent><f5> <esc>:call RunUnitTest()<cr>
 
 
 
