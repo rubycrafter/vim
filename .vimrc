@@ -366,49 +366,78 @@ imap <s-f2> <esc>:retab<cr>:1,$s/[ ]\+$//e<cr>:w<cr>:nohl<cr>
 
 " Запуск unit-теста
 function! RunUnitTest()
+    " Если находимся в окне предпросмотра ...
     if &previewwindow
+        " Удаляем буфер
         bdelete
+        " Закрываем окно предпросмотра
         pclose
+        " Очищаем командную строку
+        echo ''
+        " Завершаем работу
         return
     endif
 
+    " Если не найден паттерн теста ...
+    if len(matchstr(expand('%:p'), 'tests/unit')) == 0
+        " Завершаем работу
+        return
+    endif
+
+    echo 'Тест запущен...'
+
+    redraw
+
+    " Получаем путь, имя файла и выполняем тест
     let l:path = substitute(expand('%:p'), 'unit.*$', '', 'g')
     let l:file = substitute(expand('%:p'), '^.*tests/', '', 'g')
     let l:output = system('cd '.l:path.' && phpunit '.l:file)
 
+    " Создаем новое окно предпросмотра
     silent pedit! 'PHPUnit'
 
+    " Переключаемся на окно предпросмотра
     wincmd P
 
+    " Устанавливаем параметры окна
     setlocal buftype=nofile
     setlocal bufhidden=hide
     setlocal modifiable
 
+    " Вставляем в окно результат работы phpunit
     silent put = l:output
 
+    " Удаляем первую пустую строку ...
     execute ':1d'
+    " ... и строку с файлом конфигурации
     execute ':2,3d'
 
+    " Изменяем размер окна предпросмотра под размер текста
     silent execute 'resize '.line('$')
 
+    " Подсветка результатов
     call matchadd('PHPUnitBold', '^PHPUnit.*$')
     call matchadd('PHPUnitBold', '^There was.*failure.*$')
     call matchadd('PHPUnitFail', '^FAILURES.*$')
     call matchadd('PHPUnitOK', '^OK .*$')
     call matchadd('PHPUnitAssertFail', '^Failed asserting.*$')
 
+    " Запрет редактирования текста в окне
     setlocal nomodifiable
 
+    " Переход наверх
     execute 'normal gg'
 
     echo 'Тест завершен!'
 endfunction
 
+" Цвета для подсветки результатов
 highlight default PHPUnitBold term=bold gui=bold
 highlight default PHPUnitFail term=bold gui=bold ctermbg=Red ctermfg=White guibg=Red guifg=White
 highlight default PHPUnitOK term=bold gui=bold ctermbg=DarkGreen ctermfg=White guibg=DarkGreen guifg=White
 highlight default PHPUnitAssertFail ctermfg=Red guifg=Red
 
+" Привязка клавиш
 imap <silent><f5> <esc>:call RunUnitTest()<cr>
 nmap <silent><f5> <esc>:call RunUnitTest()<cr>
 
@@ -521,7 +550,7 @@ inoremap <c-space> <c-n>
 vnoremap * y :execute ":let @/=@\""<cr> :execute "set hlsearch"<cr>
 
 " Выключение подсветки поиска
-map <silent><leader>h <esc>:nohl<cr>:echo "Подсветка выключена!"<cr>
+map <silent><leader>h <esc>:let @/ = ""<cr>:nohl<cr>:echo "Подсветка выключена!"<cr>
 
 " Сортировка css свойств
 noremap <silent><leader>ss <esc>vi{:!sort<cr>:echo "Свойства css отсортированы!"<cr>
