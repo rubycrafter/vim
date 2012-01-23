@@ -33,6 +33,8 @@ if has("gui_running")
     set guioptions-=L
     " Отключаем меню
     set guioptions-=m
+    " Отключение копирования при выделении
+    set guioptions-=a
 
     "Антиалиасинг для шрифтов
     set antialias
@@ -70,13 +72,16 @@ set ffs=unix,dos,mac
 set fileencodings=utf8,cp1251
 
 " Формат файла по умолчанию
-set ff=unix
+set fileformat=unix
 
 " Кодировка терминала
 set termencoding=utf-8
 
 " Работа с русскими словами (чтобы w, b, * понимали русские слова)
 set iskeyword=@,48-57,_,192-255
+
+" Проверка орфографии
+set spelllang=ru_yo,en_us
 
 " Заставляем BackSpace работать как x, т.е. удалять предыдущий символ
 set backspace=indent,eol,start whichwrap+=<,>,[,]
@@ -112,6 +117,9 @@ set nocompatible
 
 " Отключение перерисовки экрана во время выполнения макроса
 set lazyredraw
+
+" Быстрая отрисовка на медленных терминалах
+set ttyfast
 
 " Игнорирование регистра при поиске
 set ignorecase
@@ -236,7 +244,7 @@ if has("gui_running")
     set cursorline
 
     " Автоматическое открытие NERDTree
-    au VimEnter *  NERDTree /home/www/
+    au VimEnter * NERDTree /home/www/
 
     " Подсветка файла под курсором
     let NERDTreeHighlightCursorline=1
@@ -330,11 +338,7 @@ let g:vimwiki_html_header_numbering = 2
 :hi VimwikiHeader6 guifg=#FFFFFF
 
 " Включение режима вклейки
-set pastetoggle=<s-f2>
-
-
-
-set ttyfast
+set pastetoggle=<f11>
 
 
 
@@ -354,6 +358,7 @@ map <esc><esc> <esc>:q!<cr>
 " Сохранение файла
 map <f2> <esc>:w<cr>
 imap <f2> <esc>:w<cr>
+
 map <s-f2> <esc>:retab<cr>:1,$s/[ ]\+$//e<cr>:w<cr>:nohl<cr>
 imap <s-f2> <esc>:retab<cr>:1,$s/[ ]\+$//e<cr>:w<cr>:nohl<cr>
 
@@ -444,11 +449,8 @@ nmap <silent><f5> <esc>:call RunUnitTest()<cr>
 
 
 
-" Проверка орфиграфии
-map <s-f1> <esc>:setlocal spell spelllang=ru<cr>:echo "Проверка орфографии включена."<cr>
-imap <s-f1> <esc>:setlocal spell spelllang=ru<cr>i:echo "Проверка орфографии включена."<cr>
-map <c-s-f1> <esc>:setlocal spell spelllang=<cr>:echo "Проверка орфографии отключена."<cr>
-imap <c-s-f1> <esc>:setlocal spell spelllang=<cr>i:echo "Проверка орфографии отключена."<cr>
+" Проверка орфографии
+map <f12> <esc>:set spell!<cr>
 
 " Исправление форматирования при вставке по Ctrl+u
 inoremap <silent> <c-u> <Esc>u:set paste<cr>.:set nopaste<cr>gi
