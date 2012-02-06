@@ -222,6 +222,7 @@ set complete+=b
 " Включение меню
 set wildmenu
 set wildmode=list:longest,full
+set wcm=<tab>
 
 " Не переносить комментарий при нажатии o/O
 set formatoptions-=o
@@ -338,7 +339,7 @@ let g:vimwiki_html_header_numbering = 2
 :hi VimwikiHeader6 guifg=#FFFFFF
 
 " Включение режима вклейки
-set pastetoggle=<f11>
+"set pastetoggle=<f9>
 
 
 
@@ -448,9 +449,19 @@ nmap <silent><f5> <esc>:call RunUnitTest()<cr>
 
 
 
+function! ToggleColorColumn()
+    if &colorcolumn == 81
+        setlocal colorcolumn=0
+    else
+        setlocal colorcolumn=81
+    endif
+endfunction
+
+" Переключение отображения линии на 81 колонке
+map <silent> <f11> <esc>:call ToggleColorColumn()<cr>
 
 " Проверка орфографии
-map <f12> <esc>:set spell!<cr>
+map <f12> <esc>:set spell!<cr>:set spell?<cr>
 
 " Исправление форматирования при вставке по Ctrl+u
 inoremap <silent> <c-u> <Esc>u:set paste<cr>.:set nopaste<cr>gi
@@ -565,6 +576,16 @@ source ~/.vim/bundle/php-doc/php-doc.vim
 inoremap <c-p> <esc>:call PhpDocSingle()<cr>i
 nnoremap <c-p> :call PhpDocSingle()<cr>
 vnoremap <c-p> :call PhpDocRange()<cr>
+
+
+
+set wcm=<tab>
+
+menu <silent> FileType.php :set ft=php<cr>
+menu <silent> FileType.html :set ft=html<cr>
+menu <silent> FileType.mysql :set ft=mysql<cr>
+
+map <f8> :emenu FileType.<tab><tab>
 
 
 
