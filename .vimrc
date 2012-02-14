@@ -178,7 +178,11 @@ set nobackup
 set noswapfile
 
 " Выключить виртуальный звонок
-set visualbell
+if has("mac")
+    set visualbell
+else
+    set novisualbell
+endif
 set t_vb=
 
 " Всегда показывать положение курсора
@@ -304,7 +308,7 @@ au BufWritePost,FileWritePost,FileAppendPost *.wiki call <SID>commit_wiki()
 let mapleader = ","
 
 " Изменить цвет курсора в консоли при изменении режима ввода
-if &term =~ "xterm"
+if &term =~ "xterm" || &term =~ "xterm-256color" 
     let &t_SI = "\<Esc>]12;red\x7"
     let &t_EI = "\<Esc>]12;white\x7"
 endif
@@ -519,14 +523,25 @@ nmap <cr> O<down><esc>
 nmap <s-cr> O<down><esc>
 
 " Перемещение между окнами по Ctrl+Стрелки
-map <a-down> <c-w><down>
-imap <a-down> <esc><c-w><c-down>
-map <a-up> <c-w><up>
-imap <a-up> <esc><c-w><c-up>
-map <a-left> <c-w><left>
-imap <a-left> <esc><c-w><c-left>
-map <a-right> <c-w><right>
-imap <a-right> <esc><c-w><c-right>
+if has("mac")
+    map <a-down> <c-w><down>
+    imap <a-down> <esc><c-w><c-down>
+    map <a-up> <c-w><up>
+    imap <a-up> <esc><c-w><c-up>
+    map <a-left> <c-w><left>
+    imap <a-left> <esc><c-w><c-left>
+    map <a-right> <c-w><right>
+    imap <a-right> <esc><c-w><c-right>
+else
+    map <c-down> <c-w><down>
+    imap <c-down> <esc><c-w><c-down>
+    map <c-up> <c-w><up>
+    imap <c-up> <esc><c-w><c-up>
+    map <c-left> <c-w><left>
+    imap <c-left> <esc><c-w><c-left>
+    map <c-right> <c-w><right>
+    imap <c-right> <esc><c-w><c-right>
+endif
 
 " Файловый менеджер
 nmap <f3> :NERDTreeToggle /home/www/<cr>

@@ -1,0 +1,108 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<link rel="Stylesheet" type="text/css" href="../style.css">
+<title>xhprof</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+</head>
+<body>
+
+<h1 id="toc_1"> xhprof</h1>
+<pre>
+wget http://pecl.php.net/get/xhprof-0.9.2.tgz
+
+tar xf xhprof-0.9.2.tgz
+
+cd ./xhprof-0.9.2/extension/
+
+phpize
+
+./configure --with-php-config=/usr/bin/php-config
+
+make
+
+make test
+
+sudo make install
+
+sudo vim /etc/php5/fpm/conf.d/xhprof.ini
+
+    [xhprof]
+    extension=xhprof.so
+    xhprof.output_dir="/var/log/xhprof"
+
+sudo mkdir -p /var/log/xhprof
+
+sudo chmod 777 /var/log/xhprof
+</pre>
+
+<h2 id="toc_1.1">1 Подключение</h2>
+
+<p>
+1. Инициализируем профайлер - будем считать и процессорное время и потребление памяти
+</p>
+
+<p>
+<code>xhprof_enable(XHPROF_FLAGS_CPU + XHPROF_FLAGS_MEMORY);</code>
+</p>
+
+<p>
+2. Выполняем "программу"
+</p>
+
+<p>
+. . .
+</p>
+
+<p>
+3. Останавливаем профайлер
+</p>
+
+<p>
+<code>$xhprofData = xhprof_disable();</code>
+</p>
+
+<p>
+<code>include "xhprof_lib/utils/xhprof_lib.php";</code>
+<code>include "xhprof_lib/utils/xhprof_runs.php";</code>
+</p>
+
+<p>
+<code>$xhprofRuns = new XHProfRuns_Default();</code>
+<code>$runId = $xhprofRuns-&gt;save_run($xhprofData, 'test');</code>
+</p>
+
+<p>
+<code>echo 'http://xhprof/index.php?run='.$runId.'&amp;source=test';</code>
+</p>
+
+
+<h2 id="toc_1.2">2 Показатели</h2>
+
+<p>
+Total Incl. Wall Time (microsec): время затраченное на выполнение функций с учетом ожидания ответов от сокетов, файловой системы и других ресурсов
+</p>
+
+<p>
+Total Incl. CPU (microsecs): время затраченное на выполнение функций
+</p>
+
+<p>
+Total Incl. MemUse (bytes): использование памяти
+</p>
+
+<p>
+Total Incl. PeakMemUse (bytes): пиковое использование памяти
+</p>
+
+<p>
+Number of Function Calls: количество вызовов функций
+</p>
+
+
+<p>
+<a href="http://tigor.com.ua/blog/2009/12/13/profiling-php-with-xhprof/">http://tigor.com.ua/blog/2009/12/13/profiling-php-with-xhprof/</a>
+</p>
+
+</body>
+</html>

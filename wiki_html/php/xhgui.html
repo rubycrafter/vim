@@ -1,0 +1,56 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<link rel="Stylesheet" type="text/css" href="../style.css">
+<title>xhgui</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+</head>
+<body>
+
+<h1 id="toc_1"> xhgui</h1>
+
+<p>
+<code>git clone https://github.com/preinheimer/xhprof.git</code>
+</p>
+
+<p>
+<code>cd xhprof</code>
+</p>
+
+<p>
+<code>mv xhprof_lib/config.sample.php xhprof_lib/config.php</code>
+</p>
+
+
+<p>
+Create database. Dump table in xhprof_lib/utils/xhprof_runs.php
+</p>
+
+
+<p>
+<code>vim xhprof_lib/config.php</code>
+</p>
+
+
+<p>
+<code>vim /etc/php/php-fpm.conf</code>
+</p>
+<blockquote>
+<code>php_value[auto_prepend_file] = "/home/www/xhprof/external/header.php"</code>
+</blockquote>
+<blockquote>
+<code>php_value[auto_append_file] = "/home/www/xhprof/external/footer.php"</code>
+</blockquote>
+
+
+<p>
+Запуск профилирования добавлением к адресу ?_profile=1 (0 - выключение)
+</p>
+
+
+<p>
+<a href="http://phpadvent.org/2010/profiling-with-xhgui-by-paul-reinheimer">http://phpadvent.org/2010/profiling-with-xhgui-by-paul-reinheimer</a>
+</p>
+
+</body>
+</html>
