@@ -23,7 +23,11 @@ filetype plugin indent on
 
 " Если запущен gvim
 if has("gui_running")
-    set guifont=Monospace
+    if has("mac")
+        set guifont=Droid\ Sans\ Mono:h14
+    else
+        set guifont=Monospace
+    endif
 
     colorscheme vitamins
 
@@ -174,7 +178,7 @@ set nobackup
 set noswapfile
 
 " Выключить виртуальный звонок
-set novisualbell
+set visualbell
 set t_vb=
 
 " Всегда показывать положение курсора
@@ -245,7 +249,11 @@ if has("gui_running")
     set cursorline
 
     " Автоматическое открытие NERDTree
-    au VimEnter * NERDTree /home/www/
+    if has("mac")
+        au VimEnter * NERDTree /Users/www/
+    else
+        au VimEnter * NERDTree /home/www/
+    endif
 
     " Подсветка файла под курсором
     let NERDTreeHighlightCursorline=1
@@ -458,10 +466,10 @@ function! ToggleColorColumn()
 endfunction
 
 " Переключение отображения линии на 81 колонке
-map <silent> <f11> <esc>:call ToggleColorColumn()<cr>
+map <silent> <leader>tl <esc>:call ToggleColorColumn()<cr>
 
 " Проверка орфографии
-map <f12> <esc>:set spell!<cr>:set spell?<cr>
+map <leader>ts <esc>:set spell!<cr>:set spell?<cr>
 
 " Исправление форматирования при вставке по Ctrl+u
 inoremap <silent> <c-u> <Esc>u:set paste<cr>.:set nopaste<cr>gi
@@ -470,21 +478,21 @@ inoremap <silent> <c-u> <Esc>u:set paste<cr>.:set nopaste<cr>gi
 nmap <c-t> <c-rightmouse>
 
 " Новая вкладка
-nmap tn :tabnew<cr>
+nmap <silent> <leader>tn :tabnew<cr>
 
 " Предыдущая вкладка
-map <c-pageup> :tabp<cr>
-nmap <c-pageup> :tabp<cr>
-imap <c-pageup> <esc>:tabp<cr>i
+map <c-a-left> :tabp<cr>
+nmap <c-a-left> :tabp<cr>
+imap <c-a-left> <esc>:tabp<cr>i
 
 " Следующая вкладка
-map <c-pagedown> :tabn<cr>
-nmap <c-pagedown> :tabn<cr>
-imap <c-pagedown> <esc>:tabn<cr>i
+map <c-a-right> :tabn<cr>
+nmap <c-a-right> :tabn<cr>
+imap <c-a-right> <esc>:tabn<cr>i
 
 " Перемещение закладок по Alt+СтрелкаВлево и Alt+СтрелкаВправо
-nnoremap <silent> <a-left> :execute 'silent! tabmove ' . (tabpagenr()-2)<cr>
-nnoremap <silent> <a-right> :execute 'silent! tabmove ' . tabpagenr()<cr>
+"nnoremap <silent> <a-left> :execute 'silent! tabmove ' . (tabpagenr()-2)<cr>
+"nnoremap <silent> <a-right> :execute 'silent! tabmove ' . tabpagenr()<cr>
 
 " Копирование и вставка в глобальный клипбоард
 vmap <c-insert> "+y
@@ -511,14 +519,14 @@ nmap <cr> O<down><esc>
 nmap <s-cr> O<down><esc>
 
 " Перемещение между окнами по Ctrl+Стрелки
-map <c-down> <c-w><down>
-imap <c-down> <esc><c-w><c-down>
-map <c-up> <c-w><up>
-imap <c-up> <esc><c-w><c-up>
-map <c-left> <c-w><left>
-imap <c-left> <esc><c-w><c-left>
-map <c-right> <c-w><right>
-imap <c-right> <esc><c-w><c-right>
+map <a-down> <c-w><down>
+imap <a-down> <esc><c-w><c-down>
+map <a-up> <c-w><up>
+imap <a-up> <esc><c-w><c-up>
+map <a-left> <c-w><left>
+imap <a-left> <esc><c-w><c-left>
+map <a-right> <c-w><right>
+imap <a-right> <esc><c-w><c-right>
 
 " Файловый менеджер
 nmap <f3> :NERDTreeToggle /home/www/<cr>
