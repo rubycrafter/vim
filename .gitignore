@@ -1,6 +1,7 @@
 !.gitignore
 .DS_Store
 wiki/
+wiki_html/
 view/
 .indexer_files
 .netrwhist
