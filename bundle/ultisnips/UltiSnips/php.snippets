@@ -1,0 +1,80 @@
+## Snippets from SnipMate, taken from
+## https://github.com/scrooloose/snipmate-snippets.git
+
+snippet iface "interface"
+interface ${1}
+{
+    ${2}
+}
+endsnippet
+
+snippet class "class"
+/**
+ * ${1}
+ */
+class ${2:ClassName}
+{
+    ${3}
+    function ${4:__construct}(${5:argument})
+    {
+        ${6:// code...}
+    }
+}
+endsnippet
+
+snippet fore "foreach"
+foreach (${1} as ${2} => ${3}) {
+    ${4}
+}
+endsnippet
+
+snippet if "if"
+if (${1}) {
+    ${2}
+}
+endsnippet
+
+snippet p "<? ... ?>"
+<? ${1} ?>
+endsnippet
+
+snippet e "<?= ... ?>"
+<?= ${1} ?>
+endsnippet
+
+snippet d "dump"
+dump(${1});
+endsnippet
+
+snippet dd "dump and die"
+dump(${1}); die();
+endsnippet
+
+snippet c "console"
+console(${1});
+endsnippet
+
+snippet cd "console and die"
+console(${1}); die();
+endsnippet
+
+snippet yt "Yii::t()"
+Yii::t('${1}', '${2}')
+endsnippet
+
+snippet com "html comment"
+<!-- ${1} -->
+endsnippet
+
+snippet > "array item"
+'${1}' => '${2}',
+endsnippet
+
+snippet fun "function() { ...  }"
+${1:public} ${2:static }function ${3}(${4})
+{
+    ${5}
+}
+endsnippet
+
+# :vim:ft=snippets:

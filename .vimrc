@@ -350,6 +350,11 @@ let g:vimwiki_html_header_numbering = 2
 :hi VimwikiHeader5 guifg=#FFFF00
 :hi VimwikiHeader6 guifg=#FFFFFF
 
+"let g:UltiSnipsExpandTrigger='<tab>'
+"let g:UltiSnipsListSnippets='<a-tab>'
+"let g:UltiSnipsJumpForwardTrigger='<c-tab>'
+"let g:UltiSnipsJumpBackwardTrigger='<c-s-tab>'
+
 " Включение режима вклейки
 "set pastetoggle=<f9>
 
