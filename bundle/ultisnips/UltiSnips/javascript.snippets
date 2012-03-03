@@ -7,13 +7,13 @@ endsnippet
 
 snippet '':f "object method string"
 '${1:${2:#thing}:${3:click}}': function(element){
-	$0
+    $0
 }${10:,}
 endsnippet
 
 snippet :f "Object Method"
 ${1:method_name}: function(${3:attribute}){
-	$0
+    $0
 }${10:,}
 endsnippet
 
@@ -27,26 +27,26 @@ endsnippet
 
 snippet proto "Prototype (proto)"
 ${1:class_name}.prototype.${2:method_name} = function(${3:first_argument}) ,,{
-	${0:// body...}
+    ${0:// body...}
 };
- 
+
 endsnippet
 
 snippet for "for (...) {...} (faster)"
 for (var ${2:i} = ${1:Things}.length - 1; $2 >= 0; $2--){
-	${3:$1[$2]}$0
+    ${3:$1[$2]}$0
 };
 endsnippet
 
 snippet for "for (...) {...}"
 for (var ${2:i}=0; $2 < ${1:Things}.length; $2++) {
-	${3:$1[$2]}$0
+    ${3:$1[$2]}$0
 };
 endsnippet
 
 snippet fun "function (fun)"
 function ${1:function_name} (${2:argument}) {
-	${0:// body...}
+    ${0:// body...}
 }
 endsnippet
 
@@ -61,5 +61,73 @@ endsnippet
 snippet timeout "setTimeout function"
 setTimeout(function() {$0}${2:}, ${1:10});
 endsnippet
+
+
+#jQuery
+snippet cl
+console.log(${1});
+endsnippet
+
+snippet cd
+console.dir(${1});
+endsnippet
+
+snippet ci
+console.info(${1});
+endsnippet
+
+snippet cw
+console.warn(${1});
+endsnippet
+
+snippet ce
+console.error(${1});
+endsnippet
+
+snippet cg
+console.group('${1}');
+endsnippet
+
+snippet cge
+console.groupEnd('${1}');
+endsnippet
+
+snippet ct
+console.time('${1}');
+endsnippet
+
+snippet cte
+console.timeEnd('${1}');
+endsnippet
+
+snippet cp
+console.profile('${1}');
+endsnippet
+
+snippet cpe
+console.profileEnd('${1}');
+endsnippet
+
+snippet ajax
+$.ajax({
+    url: '${1:/}',
+    ${2:data: {${3}},}
+    dataType: 'json',
+    type: '${4:post}',
+    ${5:beforeSend: function() {
+        ${6}
+    },}
+    complete: function() {
+        ${7:// --- code ---}
+    },
+    success: function(${8:data}) {
+        ${9:// --- code ---}
+    },
+    error: function() {
+        ${10:// --- code ---}
+    }
+});
+endsnippet
+
 
 # vim:ft=snippets:
