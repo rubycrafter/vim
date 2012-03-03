@@ -23,7 +23,7 @@ filetype plugin indent on
 
 " Если запущен gvim
 if has("gui_running")
-    if has("mac")
+    if has('gui_macvim')
         set guifont=Droid\ Sans\ Mono:h14
     else
         set guifont=Monospace
@@ -47,7 +47,8 @@ if has("gui_running")
     set sessionoptions=curdir,buffers,tabpages ",resize,winpos,winsize
 
     " Сохранение сессии
-    autocmd VimLeavePre * silent mksession! ~/.vim/lastSession.vim
+    autocmd VimLeavePre * silent mksession! '$HOME/.vim/session.vim'
+    "autocmd VimEnter * silent execute 'source $HOME/.vim/session.vim'
 endif
 
 " Использование цветов для темного фона
@@ -178,7 +179,7 @@ set nobackup
 set noswapfile
 
 " Выключить виртуальный звонок
-if has("mac")
+if has('gui_macvim')
     set visualbell
 else
     set novisualbell
@@ -243,7 +244,6 @@ nnoremap * *N
 
 " Отключение подсветки парных скобок
 let loaded_matchparen = 1
-
 set noautochdir
 let NERDTreeChDirMode=2
 let NERDTreeDirArrows=1
@@ -253,7 +253,7 @@ if has("gui_running")
     set cursorline
 
     " Автоматическое открытие NERDTree
-    if has("mac")
+    if has('gui_macvim')
         au VimEnter * NERDTree /Users/www/
     else
         au VimEnter * NERDTree /home/www/
@@ -270,6 +270,7 @@ else
 endif
 
 " При редактировании файла всегда переходить на последнюю известную
+
 " позицию курсора. Если позиция ошибочная - не переходим.
 autocmd BufReadPost *
     \ if line("'\"") > 0 && line("'\"") <= line("$") |
@@ -528,7 +529,7 @@ nmap <cr> O<down><esc>
 nmap <s-cr> O<down><esc>
 
 " Перемещение между окнами по Ctrl+Стрелки
-if has("mac")
+if has('gui_macvim')
     map <a-down> <c-w><down>
     imap <a-down> <esc><c-w><c-down>
     map <a-up> <c-w><up>
@@ -549,14 +550,23 @@ else
 endif
 
 " Файловый менеджер
-nmap <f3> :NERDTreeToggle /home/www/<cr>
-vmap <f3> <esc>:NERDTreeToggle /home/www/<cr>
-imap <f3> <esc>:NERDTreeToggle /home/www/<cr>
+if has('gui_macvim')
+    nmap <f3> :NERDTreeToggle /Users/www/<cr>
+    vmap <f3> <esc>:NERDTreeToggle /Users/www/<cr>
+    imap <f3> <esc>:NERDTreeToggle /Users/www/<cr>
+else
+    nmap <f3> :NERDTreeToggle /home/www/<cr>
+    vmap <f3> <esc>:NERDTreeToggle /home/www/<cr>
+    imap <f3> <esc>:NERDTreeToggle /home/www/<cr>
+endif
 
 " Комментирование кода
 nmap <c-\> ,ci
 vmap <c-\> ,cigv
 imap <c-\> <esc>,cii
+nmap « ,ci
+vmap « ,cigv
+imap « <esc>,cii
 
 " Перемещение строки вверх/вниз
 map <c-s-down> ddp
