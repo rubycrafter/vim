@@ -8,17 +8,12 @@ interface ${1}
 }
 endsnippet
 
-snippet class "class"
-/**
- * ${1}
- */
-class ${2:ClassName}
+snippet cla "class"
+class ${1} ${2:extends ${3}}
 {
-    ${3}
-    function ${4:__construct}(${5:argument})
-    {
-        ${6:// code...}
-    }
+
+    ${4}
+
 }
 endsnippet
 
@@ -34,36 +29,44 @@ if (${1}) {
 }
 endsnippet
 
-snippet p "<? ... ?>"
-<? ${1} ?>
+snippet p "<? ... ?>" w
+<? ${VISUAL}${1} ?>
 endsnippet
 
-snippet e "<?= ... ?>"
-<?= ${1} ?>
+snippet e "<?= ... ?>" w
+<?= ${VISUAL}${1} ?>
 endsnippet
 
-snippet d "dump"
-dump(${1});
+snippet di "die" w
+die(${VISUAL}${1});
 endsnippet
 
-snippet dd "dump and die"
-dump(${1}); die();
+snippet d "dump" w
+dump(${VISUAL}${1});
 endsnippet
 
-snippet c "console"
-console(${1});
+snippet dd "dump and die" w
+dump(${VISUAL}${1}); die();
 endsnippet
 
-snippet cd "console and die"
-console(${1}); die();
+snippet c "console" w
+console(${VISUAL}${1});
 endsnippet
 
-snippet yt "Yii::t()"
+snippet cd "console and die" w
+console(${VISUAL}${1}); die();
+endsnippet
+
+snippet yt "Yii::t()" w
 Yii::t('${1}', '${VISUAL}${2}')
 endsnippet
 
-snippet com "html comment"
-<!-- ${1} -->
+snippet yte "<?= Yii::t() ?>" w
+<?= Yii::t('${1}', '${VISUAL}${2}') ?>
+endsnippet
+
+snippet com "html comment" w
+<!-- ${VISUAL}${1} -->
 endsnippet
 
 snippet > "array item"

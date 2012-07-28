@@ -21,10 +21,12 @@ call pathogen#helptags()
 filetype plugin on
 filetype plugin indent on
 
+let macvim_skip_cmd_opt_movement = 1
+
 " Если запущен gvim
 if has("gui_running")
     if has('gui_macvim')
-        set guifont=Droid\ Sans\ Mono:h14
+        set guifont=DejaVu\ Sans\ Mono:h14
     else
         set guifont=Monospace
     endif
@@ -73,7 +75,7 @@ set langmap=ФИСВУАПРШОЛДЬТЩЗЙКЫЕГМЦЧНЯ;ABCDEFGHIJKLMNO
 set fencs=utf-8,cp1251,koi8-r,ucs-2,cp866
 
 " Порядок применения кодировок и формата файлов
-set ffs=unix,dos,mac
+set ffs=unix,mac,dos
 set fileencodings=utf8,cp1251
 
 " Формат файла по умолчанию
@@ -353,8 +355,8 @@ let g:vimwiki_html_header_numbering = 2
 
 "let g:UltiSnipsExpandTrigger='<tab>'
 "let g:UltiSnipsListSnippets='<a-tab>'
-"let g:UltiSnipsJumpForwardTrigger='<c-tab>'
-"let g:UltiSnipsJumpBackwardTrigger='<c-s-tab>'
+let g:UltiSnipsJumpForwardTrigger='<tab>'
+let g:UltiSnipsJumpBackwardTrigger='<s-tab>'
 
 " Включение режима вклейки
 "set pastetoggle=<f9>
@@ -530,14 +532,14 @@ nmap <s-cr> O<down><esc>
 
 " Перемещение между окнами по Ctrl+Стрелки
 if has('gui_macvim')
-    map <a-down> <c-w><down>
-    imap <a-down> <esc><c-w><c-down>
-    map <a-up> <c-w><up>
-    imap <a-up> <esc><c-w><c-up>
-    map <a-left> <c-w><left>
-    imap <a-left> <esc><c-w><c-left>
-    map <a-right> <c-w><right>
-    imap <a-right> <esc><c-w><c-right>
+    map <m-down> <c-w><down>
+    imap <m-down> <esc><c-w><c-down>
+    map <m-up> <c-w><up>
+    imap <m-up> <esc><c-w><c-up>
+    map <m-left> <c-w><left>
+    imap <m-left> <esc><c-w><c-left>
+    map <m-right> <c-w><right>
+    imap <m-right> <esc><c-w><c-right>
 else
     map <c-down> <c-w><down>
     imap <c-down> <esc><c-w><c-down>
