@@ -26,12 +26,12 @@ call vundle#rc()
 Bundle 'gmarik/vundle'
 
 " repos on github
-"Bundle 'tsaleh/vim-align'
 "Bundle 'tetsuo13/Vim-PHP-Doc'
+"Bundle 'godlygeek/tabular'
+Bundle 'tsaleh/vim-align'
 Bundle '2072/PHP-Indenting-for-VIm'
 Bundle 'Lokaltog/vim-powerline'
 Bundle 'acustodioo/vim-tmux'
-Bundle 'godlygeek/tabular'
 Bundle 'gregsexton/MatchTag'
 Bundle 'hail2u/vim-css3-syntax'
 Bundle 'hallison/vim-markdown'
@@ -191,7 +191,7 @@ set incsearch
 set laststatus=2
 
 " Включение X clipboard
-set clipboard=unnamed
+"set clipboard=unnamed
 
 " Количество строк прокрутки при достижении границы
 set scrolljump=0
@@ -286,13 +286,27 @@ set wildmode=list:longest,full
 set wcm=<tab>
 
 " Не переносить комментарий при нажатии o/O
-set formatoptions-=o
+"set formatoptions-=o
 
 " Включает флаг g в командах замены
 "set gdefault
 
 " При подсвечивании не переходить к следующему результату
 nnoremap * *N
+
+"set statusline=
+"set statusline+=%(\ %m%)            " флаг 'файл изменен'
+"set statusline+=\ %y                " тип
+"set statusline+=\ %{&ff}            " формат
+"set statusline+=\ %{&fileencoding}  " кодировка
+"set statusline+=\ %F                " полный путь
+"set statusline+=\ %{FileSize()}     " размер
+"set statusline+=\ %r                " флаг 'только для чтения'
+"set statusline+=%=                  " разделитель лево/право
+"set statusline+=%l/%L               " текущая строка / всего строк
+"set statusline+=\ %c                " текущая колонка
+"set statusline+=\ %p%%              " позиция в файле
+"set statusline+=\                   " пробел вконце
 
 " Отключение подсветки парных скобок
 let loaded_matchparen = 1
@@ -303,6 +317,9 @@ let NERDTreeDirArrows=1
 if has("gui_running")
     " Подсвечивать текущую строку в GUI режиме
     set cursorline
+
+    " Подсветка длины строки в 80 символов
+    set colorcolumn=81
 
     " Автоматическое открытие NERDTree
     if has('gui_macvim')
@@ -351,6 +368,7 @@ function! s:commit_wiki()
     let l:output = system("git pull origin master")
     let l:output = system("git push origin master")
 endfunction
+
 au BufWritePost,FileWritePost,FileAppendPost *.wiki call <SID>commit_wiki()
 
 " Автодополнение по табу
@@ -358,10 +376,10 @@ au BufWritePost,FileWritePost,FileAppendPost *.wiki call <SID>commit_wiki()
 "let g:SuperTabDefaultCompletionType = 'context'
 
 " установка 'leader key'
-let mapleader = ","
+let mapleader = ','
 
 " Изменить цвет курсора в консоли при изменении режима ввода
-if &term =~ "xterm" || &term =~ "xterm-256color" 
+if &term =~ "xterm" || &term =~ "xterm-256color"
     let &t_SI = "\<Esc>]12;red\x7"
     let &t_EI = "\<Esc>]12;white\x7"
 endif
@@ -409,7 +427,7 @@ let g:UltiSnipsJumpForwardTrigger = '<tab>'
 let g:UltiSnipsJumpBackwardTrigger = '<s-tab>'
 
 " Настройки Powerline
-let Powerline_symbols = 'fancy'
+"let Powerline_symbols = 'fancy'
 
 " PHP Doc
 let g:pdv_cfg_Type = 'mixed'
@@ -528,19 +546,6 @@ highlight default PHPUnitAssertFail ctermfg=Red guifg=Red
 imap <silent><f5> <esc>:call RunUnitTest()<cr>
 nmap <silent><f5> <esc>:call RunUnitTest()<cr>
 
-
-
-function! ToggleColorColumn()
-    if &colorcolumn == 81
-        setlocal colorcolumn=0
-    else
-        setlocal colorcolumn=81
-    endif
-endfunction
-
-" Переключение отображения линии на 81 колонке
-map <silent> <leader>tl <esc>:call ToggleColorColumn()<cr>
-
 " Проверка орфографии
 map <leader>ts <esc>:set spell!<cr>:set spell?<cr>
 
@@ -583,9 +588,9 @@ vnoremap < <gv
 vnoremap > >gv
 
 " Автоматическая табуляция
-vmap <leader>a= :Tabularize /=<cr>
-vmap <leader>a: :Tabularize /:<cr>
-vmap <leader>a> :Tabularize /=><cr>
+vmap <leader>a= :Align =<cr>
+vmap <leader>a: :Align :<cr>
+vmap <leader>a> :Align =><cr>
 
 " По нажатию Enter переводить строку в нормальном режиме
 nmap <cr> O<down><esc>
@@ -712,20 +717,6 @@ function! FileSize()
         return (bytes / 1024) . " K"
     endif
 endfunction
-
-set statusline=
-set statusline+=%(\ %m%)            " флаг 'файл изменен'
-set statusline+=\ %y                " тип
-set statusline+=\ %{&ff}            " формат
-set statusline+=\ %{&fileencoding}  " кодировка
-set statusline+=\ %F                " полный путь
-set statusline+=\ %{FileSize()}     " размер
-set statusline+=\ %r                " флаг 'только для чтения'
-set statusline+=%=                  " разделитель лево/право
-set statusline+=%l/%L               " текущая строка / всего строк
-set statusline+=\ %c                " текущая колонка
-set statusline+=\ %p%%              " позиция в файле
-set statusline+=\                   " пробел вконце
 
 
 " Задаем собственные функции для назначения имен заголовкам табов -->
