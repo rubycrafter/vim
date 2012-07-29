@@ -6,3 +6,5 @@ view/
 .indexer_files
 .netrwhist
 session.vim
+bundle/
+!bundle/vundle/

@@ -11,12 +11,61 @@
 "   Основные настройки
 " --------------------------
 
-" Настройки Pathogen
+" Отключение совместимости с Vi
+set nocompatible
 
+" Сброс типа файла
 filetype off
 
-call pathogen#runtime_append_all_bundles()
-call pathogen#helptags()
+
+" Подключение Vundle
+set rtp+=~/.vim/bundle/vundle/
+call vundle#rc()
+
+" let Vundle manage Vundle
+Bundle 'gmarik/vundle'
+
+" repos on github
+"Bundle 'tsaleh/vim-align'
+"Bundle 'tetsuo13/Vim-PHP-Doc'
+Bundle '2072/PHP-Indenting-for-VIm'
+Bundle 'Lokaltog/vim-powerline'
+Bundle 'acustodioo/vim-tmux'
+Bundle 'godlygeek/tabular'
+Bundle 'gregsexton/MatchTag'
+Bundle 'hail2u/vim-css3-syntax'
+Bundle 'hallison/vim-markdown'
+Bundle 'itspriddle/vim-jquery'
+Bundle 'leshill/vim-json'
+Bundle 'mattn/zencoding-vim'
+Bundle 'mutewinter/vim-indent-guides'
+Bundle 'pangloss/vim-javascript'
+Bundle 'scrooloose/nerdcommenter'
+Bundle 'scrooloose/nerdtree'
+Bundle 'tpope/vim-repeat'
+Bundle 'tpope/vim-speeddating'
+Bundle 'tpope/vim-surround'
+Bundle 'vim-scripts/PDV--phpDocumentor-for-Vim'
+Bundle 'vim-scripts/UltiSnips.git'
+Bundle 'vim-scripts/guicolorscheme.vim'
+Bundle 'vim-scripts/vimwiki.git'
+Bundle 'vim-scripts/php.vim'
+Bundle 'shawncplus/php.vim'
+
+" vim-scripts repos
+"Bundle 'indexer.tar.gz'
+
+" non github repos
+"Bundle 'git://git.wincent.com/command-t.git'
+
+
+" Brief help
+" :BundleList          - list configured bundles
+" :BundleInstall(!)    - install(update) bundles
+" :BundleSearch(!) foo - search(or refresh cache first) for foo
+" :BundleClean(!)      - confirm(or auto-approve) removal of unused bundles
+
+
 
 filetype plugin on
 filetype plugin indent on
@@ -49,7 +98,7 @@ if has("gui_running")
     set sessionoptions=curdir,buffers,tabpages ",resize,winpos,winsize
 
     " Сохранение сессии
-    autocmd VimLeavePre * silent mksession! '$HOME/.vim/session.vim'
+    autocmd VimLeavePre * silent mksession! $HOME/.vim/session.vim
     "autocmd VimEnter * silent execute 'source $HOME/.vim/session.vim'
 endif
 
@@ -91,7 +140,11 @@ set iskeyword=@,48-57,_,192-255
 set spelllang=ru_yo,en_us
 
 " Заставляем BackSpace работать как x, т.е. удалять предыдущий символ
-set backspace=indent,eol,start whichwrap+=<,>,[,]
+set backspace=indent,eol,start
+
+" Отключение перехода курсора на след. строку при достижении конца строки
+" set whichwrap+=<,>,[,]
+set whichwrap=b,s
 
 " Включение нумерации строк
 set number
@@ -118,9 +171,6 @@ set mousehide
 
 " Разрешить визуальное выделение мышью
 set mouse=nvir
-
-" Отключение совместимости с Vi
-set nocompatible
 
 " Отключение перерисовки экрана во время выполнения макроса
 set lazyredraw
@@ -353,10 +403,21 @@ let g:vimwiki_html_header_numbering = 2
 :hi VimwikiHeader5 guifg=#FFFF00
 :hi VimwikiHeader6 guifg=#FFFFFF
 
-"let g:UltiSnipsExpandTrigger='<tab>'
-"let g:UltiSnipsListSnippets='<a-tab>'
-let g:UltiSnipsJumpForwardTrigger='<tab>'
-let g:UltiSnipsJumpBackwardTrigger='<s-tab>'
+"let g:UltiSnipsExpandTrigger = '<tab>'
+"let g:UltiSnipsListSnippets = '<a-tab>'
+let g:UltiSnipsJumpForwardTrigger = '<tab>'
+let g:UltiSnipsJumpBackwardTrigger = '<s-tab>'
+
+" Настройки Powerline
+let Powerline_symbols = 'fancy'
+
+" PHP Doc
+let g:pdv_cfg_Type = 'mixed'
+let g:pdv_cfg_Package = ''
+let g:pdv_cfg_Version = '$id$'
+let g:pdv_cfg_Author = 'Dmitriy Grechukha <dmitriy.grechukha@gmail.com>'
+let g:pdv_cfg_Copyright = 'Dmitriy Grechukha'
+let g:pdv_cfg_License = 'PHP Version 5.3 {@link http://www.php.net/license/}'
 
 " Включение режима вклейки
 "set pastetoggle=<f9>
@@ -612,7 +673,6 @@ noremap <silent><leader>ss <esc>vi{:!sort<cr>:echo "Свойства css отс�
 noremap <silent><leader>ct <esc>:%!~/.vim/plugin/cssformatter.py<cr>:echo "Свойства css отформатированы!"<cr>
 
 " phpDoc
-source ~/.vim/bundle/php-doc/php-doc.vim
 inoremap <c-p> <esc>:call PhpDocSingle()<cr>i
 nnoremap <c-p> :call PhpDocSingle()<cr>
 vnoremap <c-p> :call PhpDocRange()<cr>
