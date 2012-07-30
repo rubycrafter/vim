@@ -199,9 +199,6 @@ set scrolljump=0
 " Количество строк, при достижении которых страница будет прокручиваться
 set scrolloff=0
 
-" Всегда отображать статусную строку для каждого окна
-set laststatus=2
-
 " Разбивать окно горизонтально снизу
 set splitbelow
 
@@ -294,6 +291,10 @@ set wcm=<tab>
 " При подсвечивании не переходить к следующему результату
 nnoremap * *N
 
+" Цвет ~
+highlight NonText ctermfg=bg guifg=bg
+
+" Формат строки состояния
 "set statusline=
 "set statusline+=%(\ %m%)            " флаг 'файл изменен'
 "set statusline+=\ %y                " тип
@@ -428,6 +429,7 @@ let g:UltiSnipsJumpBackwardTrigger = '<s-tab>'
 
 " Настройки Powerline
 "let Powerline_symbols = 'fancy'
+let Powerline_colorscheme = 'timlar'
 
 " PHP Doc
 let g:pdv_cfg_Type = 'mixed'
@@ -588,9 +590,9 @@ vnoremap < <gv
 vnoremap > >gv
 
 " Автоматическая табуляция
-vmap <leader>a= :Align =<cr>
-vmap <leader>a: :Align :<cr>
-vmap <leader>a> :Align =><cr>
+"vmap <leader>a= :Align =<cr>
+"vmap <leader>a: :Align :<cr>
+"vmap <leader>a> :Align =><cr>
 
 " По нажатию Enter переводить строку в нормальном режиме
 nmap <cr> O<down><esc>

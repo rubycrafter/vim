@@ -7,4 +7,3 @@ view/
 .netrwhist
 session.vim
 bundle/
-!bundle/vundle/
