@@ -294,6 +294,9 @@ nnoremap * *N
 " Цвет ~
 highlight NonText ctermfg=bg guifg=bg
 
+" Цвет номера текущей строки
+highlight CursorLineNr guifg=#999999
+
 " Формат строки состояния
 "set statusline=
 "set statusline+=%(\ %m%)            " флаг 'файл изменен'
