@@ -28,7 +28,6 @@ Bundle 'gmarik/vundle'
 " repos on github
 "Bundle 'tetsuo13/Vim-PHP-Doc'
 "Bundle 'godlygeek/tabular'
-Bundle 'tsaleh/vim-align'
 Bundle '2072/PHP-Indenting-for-VIm'
 Bundle 'Lokaltog/vim-powerline'
 Bundle 'acustodioo/vim-tmux'
@@ -42,15 +41,16 @@ Bundle 'mutewinter/vim-indent-guides'
 Bundle 'pangloss/vim-javascript'
 Bundle 'scrooloose/nerdcommenter'
 Bundle 'scrooloose/nerdtree'
+Bundle 'shawncplus/php.vim'
 Bundle 'tpope/vim-repeat'
 Bundle 'tpope/vim-speeddating'
 Bundle 'tpope/vim-surround'
+Bundle 'tsaleh/vim-align'
 Bundle 'vim-scripts/PDV--phpDocumentor-for-Vim'
 Bundle 'vim-scripts/UltiSnips.git'
 Bundle 'vim-scripts/guicolorscheme.vim'
-Bundle 'vim-scripts/vimwiki.git'
 Bundle 'vim-scripts/php.vim'
-Bundle 'shawncplus/php.vim'
+Bundle 'vim-scripts/vimwiki.git'
 
 " vim-scripts repos
 "Bundle 'indexer.tar.gz'
@@ -292,7 +292,7 @@ set wcm=<tab>
 nnoremap * *N
 
 " Цвет ~
-highlight NonText ctermfg=bg guifg=bg
+"highlight NonText ctermfg=bg guifg=bg
 
 " Цвет номера текущей строки
 highlight CursorLineNr guifg=#999999
@@ -425,12 +425,14 @@ let g:vimwiki_html_header_numbering = 2
 :hi VimwikiHeader5 guifg=#FFFF00
 :hi VimwikiHeader6 guifg=#FFFFFF
 
-"let g:UltiSnipsExpandTrigger = '<tab>'
-"let g:UltiSnipsListSnippets = '<a-tab>'
+" UltiSnips
+let g:UltiSnipsSnippetDirectories = ['UltiSnips', 'user/snippets']
+let g:UltiSnipsExpandTrigger = '<tab>'
+let g:UltiSnipsListSnippets = '<a-tab>'
 let g:UltiSnipsJumpForwardTrigger = '<tab>'
 let g:UltiSnipsJumpBackwardTrigger = '<s-tab>'
 
-" Настройки Powerline
+" Powerline
 "let Powerline_symbols = 'fancy'
 let Powerline_colorscheme = 'timlar'
 
@@ -687,9 +689,6 @@ inoremap <c-p> <esc>:call PhpDocSingle()<cr>i
 nnoremap <c-p> :call PhpDocSingle()<cr>
 vnoremap <c-p> :call PhpDocRange()<cr>
 
-
-
-set wcm=<tab>
 
 menu <silent> FileType.php :set ft=php<cr>
 menu <silent> FileType.html :set ft=html<cr>
