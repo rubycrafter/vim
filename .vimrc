@@ -426,7 +426,7 @@ let g:vimwiki_html_header_numbering = 2
 :hi VimwikiHeader6 guifg=#FFFFFF
 
 " UltiSnips
-let g:UltiSnipsSnippetDirectories = ['UltiSnips', 'user/snippets']
+let g:UltiSnipsSnippetDirectories = ['UltiSnips', 'snippets']
 let g:UltiSnipsExpandTrigger = '<tab>'
 let g:UltiSnipsListSnippets = '<a-tab>'
 let g:UltiSnipsJumpForwardTrigger = '<tab>'
