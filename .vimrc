@@ -357,6 +357,7 @@ au FileType html set omnifunc=htmlcomplete#CompleteTag
 au FileType xml set omnifunc=xmlcomplete#CompleteTag
 au FileType javascript set omnifunc=javascriptcomplete#CompleteJ
 au FileType css set omnifunc=csscomplete#CompleteC
+au FileType ruby setl sw=2 sts=2 et
 
 " Автоматически открывать и закрывать окно предпросмотра
 "au CursorMovedI,InsertLeave * if pumvisible() == 0|silent! pclose|endif
