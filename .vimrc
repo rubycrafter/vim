@@ -29,16 +29,17 @@ Bundle 'gmarik/vundle'
 "Bundle 'tetsuo13/Vim-PHP-Doc'
 "Bundle 'godlygeek/tabular'
 "Bundle '2072/PHP-Indenting-for-VIm'
-Bundle 'Lokaltog/vim-powerline'
 "Bundle 'acustodioo/vim-tmux'
 "Bundle 'gregsexton/MatchTag'
-Bundle 'hail2u/vim-css3-syntax'
 "Bundle 'hallison/vim-markdown'
 "Bundle 'itspriddle/vim-jquery'
+"Bundle 'pangloss/vim-javascript'
+
+Bundle 'Lokaltog/vim-powerline'
+Bundle 'hail2u/vim-css3-syntax'
 Bundle 'leshill/vim-json'
 Bundle 'mattn/zencoding-vim'
 Bundle 'mutewinter/vim-indent-guides'
-Bundle 'pangloss/vim-javascript'
 Bundle 'scrooloose/nerdcommenter'
 Bundle 'scrooloose/nerdtree'
 Bundle 'shawncplus/php.vim'
@@ -314,6 +315,7 @@ highlight CursorLineNr guifg=#999999
 
 " Отключение подсветки парных скобок
 let loaded_matchparen = 1
+
 set noautochdir
 let NERDTreeChDirMode=2
 let NERDTreeDirArrows=1
