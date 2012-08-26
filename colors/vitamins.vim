@@ -37,7 +37,7 @@ hi SpecialKey   guifg=#808080 guibg=#343434 gui=none
 " Syntax highlighting
 hi Comment      guifg=#808080 gui=none ctermfg=244
 hi Todo         guifg=#8f8f8f gui=none ctermfg=245
-hi Constant     guifg=#acf0f2 gui=none ctermfg=159
+hi Constant     guifg=#00a2da gui=none ctermfg=159
 hi String       guifg=#ff5d28 gui=none ctermfg=202
 hi Identifier   guifg=#ff5d28 gui=none ctermfg=202
 hi Function     guifg=#cdd129 gui=none ctermfg=184
@@ -46,5 +46,10 @@ hi Statement    guifg=#af5f5f gui=none ctermfg=131
 hi Keyword      guifg=#cdd129 gui=none ctermfg=184
 hi PreProc      guifg=#ede39e gui=none ctermfg=187
 hi Number       guifg=#ede39e gui=none ctermfg=187
-hi Special      guifg=#acf0f2 gui=none ctermfg=159
+hi Special      guifg=#f6f3f0 gui=none ctermfg=159
 
+" NERDTree
+hi Directory    guifg=#00a2da gui=none ctermfg=159
+
+" Current line number
+hi CursorLineNr guifg=#999999
