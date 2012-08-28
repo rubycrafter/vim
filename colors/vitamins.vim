@@ -15,6 +15,7 @@ let colors_name = "vitamins"
 " Vim >= 7.0 specific colors
 if version >= 700
   hi CursorLine   guibg=#2d2d2d ctermbg=236
+  hi CursorLineNr guifg=#999999 ctermbg=236
   hi CursorColumn guibg=#2d2d2d ctermbg=236
   hi MatchParen   guifg=#f6f3e8 guibg=#857b6f gui=bold ctermbg=59
   hi Pmenu        guifg=#f6f3e8 guibg=#444444 ctermbg=242
@@ -46,10 +47,8 @@ hi Statement    guifg=#af5f5f gui=none ctermfg=131
 hi Keyword      guifg=#cdd129 gui=none ctermfg=184
 hi PreProc      guifg=#ede39e gui=none ctermfg=187
 hi Number       guifg=#ede39e gui=none ctermfg=187
-hi Special      guifg=#f6f3f0 gui=none ctermfg=159
+"hi Special      guifg=#f6f3f0 gui=none ctermfg=159
+hi Special      guifg=#00a2da gui=none ctermfg=159
 
 " NERDTree
 hi Directory    guifg=#00a2da gui=none ctermfg=159
-
-" Current line number
-hi CursorLineNr guifg=#999999

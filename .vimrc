@@ -688,12 +688,18 @@ inoremap <c-p> <esc>:call PhpDocSingle()<cr>i
 nnoremap <c-p> :call PhpDocSingle()<cr>
 vnoremap <c-p> :call PhpDocRange()<cr>
 
+" Установка ипа файла
+nnoremap <leader>fh :set ft=html<cr>:echo "Установлен тип файла: HTML"<cr>
+nnoremap <leader>fp :set ft=php<cr>:echo "Установлен тип файла: PHP"<cr>
+nnoremap <leader>fm :set ft=mysql<cr>:echo "Установлен тип файла: MySQL"<cr>
+nnoremap <leader>fc :set ft=css<cr>:echo "Установлен тип файла: CSS"<cr>
+nnoremap <leader>fj :set ft=javascript<cr>:echo "Установлен тип файла: JavaScript"<cr>
 
-menu <silent> FileType.php :set ft=php<cr>
-menu <silent> FileType.html :set ft=html<cr>
-menu <silent> FileType.mysql :set ft=mysql<cr>
+"menu <silent> FileType.php :set ft=php<cr>
+"menu <silent> FileType.html :set ft=html<cr>
+"menu <silent> FileType.mysql :set ft=mysql<cr>
 
-map <f8> :emenu FileType.<tab><tab>
+"map <f8> :emenu FileType.<tab><tab>
 
 
 
