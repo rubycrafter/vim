@@ -7,18 +7,19 @@ set background=dark
 hi clear
 
 if exists("syntax_on")
-  syntax reset
+    syntax reset
 endif
 
 let colors_name = "vitamins"
 
 " Vim >= 7.0 specific colors
 if version >= 700
-  hi CursorLine   guibg=#2d2d2d ctermbg=236
-  hi CursorColumn guibg=#2d2d2d ctermbg=236
-  hi MatchParen   guifg=#f6f3e8 guibg=#857b6f gui=bold ctermbg=59
-  hi Pmenu        guifg=#f6f3e8 guibg=#444444 ctermbg=242
-  hi PmenuSel     guifg=#000000 guibg=#cdd129 ctermfg=0 ctermbg=184
+    hi CursorLine   guibg=#2d2d2d ctermbg=236
+    hi CursorLineNr guifg=#999999
+    hi CursorColumn guibg=#2d2d2d ctermbg=236
+    hi MatchParen   guifg=#f6f3e8 guibg=#857b6f gui=bold ctermbg=59
+    hi Pmenu        guifg=#f6f3e8 guibg=#444444 ctermbg=242
+    hi PmenuSel     guifg=#000000 guibg=#cdd129 ctermfg=0 ctermbg=184
 endif
 
 " General colors
@@ -37,7 +38,7 @@ hi SpecialKey   guifg=#808080 guibg=#343434 gui=none
 " Syntax highlighting
 hi Comment      guifg=#808080 gui=none ctermfg=244
 hi Todo         guifg=#8f8f8f gui=none ctermfg=245
-hi Constant     guifg=#00a2da gui=none ctermfg=159
+hi Constant     guifg=#0087b2 gui=none ctermfg=159
 hi String       guifg=#ff5d28 gui=none ctermfg=202
 hi Identifier   guifg=#ff5d28 gui=none ctermfg=202
 hi Function     guifg=#cdd129 gui=none ctermfg=184
@@ -46,10 +47,7 @@ hi Statement    guifg=#af5f5f gui=none ctermfg=131
 hi Keyword      guifg=#cdd129 gui=none ctermfg=184
 hi PreProc      guifg=#ede39e gui=none ctermfg=187
 hi Number       guifg=#ede39e gui=none ctermfg=187
-hi Special      guifg=#f6f3f0 gui=none ctermfg=159
+hi Special      guifg=#0087b2 gui=none ctermfg=159
 
 " NERDTree
-hi Directory    guifg=#00a2da gui=none ctermfg=159
-
-" Current line number
-hi CursorLineNr guifg=#999999
+hi Directory    guifg=#0087b2 gui=none ctermfg=159
