@@ -26,16 +26,17 @@ call vundle#rc()
 Bundle 'gmarik/vundle'
 
 " repos on github
-"Bundle 'tetsuo13/Vim-PHP-Doc'
-"Bundle 'godlygeek/tabular'
+"Bundle '2072/PHP-Indenting-for-VIm'
 "Bundle 'acustodioo/vim-tmux'
 "Bundle 'gregsexton/MatchTag'
 "Bundle 'hallison/vim-markdown'
 "Bundle 'itspriddle/vim-jquery'
 "Bundle 'pangloss/vim-javascript'
+"Bundle 'tetsuo13/Vim-PHP-Doc'
+"Bundle 'tsaleh/vim-align'
 
-Bundle '2072/PHP-Indenting-for-VIm'
 Bundle 'Lokaltog/vim-powerline'
+Bundle 'godlygeek/tabular'
 Bundle 'hail2u/vim-css3-syntax'
 Bundle 'leshill/vim-json'
 Bundle 'mattn/zencoding-vim'
@@ -45,11 +46,10 @@ Bundle 'scrooloose/nerdtree'
 Bundle 'tpope/vim-repeat'
 Bundle 'tpope/vim-speeddating'
 Bundle 'tpope/vim-surround'
-Bundle 'tsaleh/vim-align'
-Bundle 'vim-scripts/php.vim'
 Bundle 'vim-scripts/PDV--phpDocumentor-for-Vim'
 Bundle 'vim-scripts/UltiSnips.git'
 Bundle 'vim-scripts/guicolorscheme.vim'
+Bundle 'vim-scripts/php.vim'
 Bundle 'vim-scripts/vimwiki.git'
 
 " vim-scripts repos
@@ -357,6 +357,8 @@ au FileType javascript set omnifunc=javascriptcomplete#CompleteJ
 au FileType css set omnifunc=csscomplete#CompleteC
 au FileType ruby setl sw=2 sts=2 et
 
+au BufNewFile,BufRead *tmp/sql* set syntax=sql
+
 " Автоматически открывать и закрывать окно предпросмотра
 "au CursorMovedI,InsertLeave * if pumvisible() == 0|silent! pclose|endif
 au CursorMovedI,InsertLeave * silent! pclose
@@ -594,9 +596,9 @@ vnoremap < <gv
 vnoremap > >gv
 
 " Автоматическая табуляция
-"vmap <leader>a= :Align =<cr>
-"vmap <leader>a: :Align :<cr>
-"vmap <leader>a> :Align =><cr>
+vmap <leader>a= :Tabularize /=<cr>
+vmap <leader>a: :Tabularize /:<cr>
+vmap <leader>a> :Tabularize /=><cr>
 
 " По нажатию Enter переводить строку в нормальном режиме
 nmap <cr> O<down><esc>
@@ -690,6 +692,7 @@ vnoremap <c-p> :call PhpDocRange()<cr>
 
 " Установка ипа файла
 nnoremap <leader>fh :set ft=html<cr>:echo "Установлен тип файла: HTML"<cr>
+nnoremap <leader>fx :set ft=xml<cr>:echo "Установлен тип файла: XML"<cr>
 nnoremap <leader>fp :set ft=php<cr>:echo "Установлен тип файла: PHP"<cr>
 nnoremap <leader>fm :set ft=mysql<cr>:echo "Установлен тип файла: MySQL"<cr>
 nnoremap <leader>fc :set ft=css<cr>:echo "Установлен тип файла: CSS"<cr>
