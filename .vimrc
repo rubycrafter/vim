@@ -26,7 +26,7 @@ call vundle#rc()
 Bundle 'gmarik/vundle'
 
 " repos on github
-"Bundle '2072/PHP-Indenting-for-VIm'
+Bundle '2072/PHP-Indenting-for-VIm'
 "Bundle 'acustodioo/vim-tmux'
 "Bundle 'gregsexton/MatchTag'
 "Bundle 'hallison/vim-markdown'
@@ -567,11 +567,19 @@ nmap <c-t> <c-rightmouse>
 nmap <silent> <leader>tn :tabnew<cr>
 
 " Предыдущая вкладка
+map <D-left> :tabp<cr>
+nmap <D-left> :tabp<cr>
+imap <D-left> <esc>:tabp<cr>i
+
 map <c-a-left> :tabp<cr>
 nmap <c-a-left> :tabp<cr>
 imap <c-a-left> <esc>:tabp<cr>i
 
 " Следующая вкладка
+map <D-right> :tabn<cr>
+nmap <D-right> :tabn<cr>
+imap <D-right> <esc>:tabn<cr>i
+
 map <c-a-right> :tabn<cr>
 nmap <c-a-right> :tabn<cr>
 imap <c-a-right> <esc>:tabn<cr>i
