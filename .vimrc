@@ -11,10 +11,13 @@
 "   Основные настройки
 " --------------------------
 
+set shell=bash\ -i
+
 " Отключение совместимости с Vi
 set nocompatible
 
 " Сброс типа файла
+filetype on
 filetype off
 
 
@@ -26,44 +29,37 @@ call vundle#rc()
 Bundle 'gmarik/vundle'
 
 " repos on github
-Bundle '2072/PHP-Indenting-for-VIm'
-"Bundle 'acustodioo/vim-tmux'
 "Bundle 'gregsexton/MatchTag'
-"Bundle 'hallison/vim-markdown'
-"Bundle 'itspriddle/vim-jquery'
-"Bundle 'pangloss/vim-javascript'
-"Bundle 'tetsuo13/Vim-PHP-Doc'
-"Bundle 'tsaleh/vim-align'
 
-Bundle 'Lokaltog/vim-powerline'
+Bundle '2072/PHP-Indenting-for-VIm'
+Bundle 'bling/vim-airline'
 Bundle 'godlygeek/tabular'
 Bundle 'hail2u/vim-css3-syntax'
 Bundle 'leshill/vim-json'
-Bundle 'mattn/zencoding-vim'
-Bundle 'mutewinter/vim-indent-guides'
+Bundle 'mattn/emmet-vim.git'
+Bundle 'nathanaelkane/vim-indent-guides'
 Bundle 'scrooloose/nerdcommenter'
 Bundle 'scrooloose/nerdtree'
 Bundle 'tpope/vim-repeat'
-Bundle 'tpope/vim-speeddating'
 Bundle 'tpope/vim-surround'
 Bundle 'vim-scripts/PDV--phpDocumentor-for-Vim'
 Bundle 'vim-scripts/UltiSnips.git'
 Bundle 'vim-scripts/guicolorscheme.vim'
 Bundle 'vim-scripts/php.vim'
 Bundle 'vim-scripts/vimwiki.git'
+"Bundle 'vim-scripts/dbext.vim'
+"Bundle 'tpope/vim-fugitive'
+"Bundle 'tomasr/molokai'
+"Bundle 'terryma/vim-multiple-cursors'
+
+"Bundle 'Raimondi/delimitMate'
+"Bundle 'bartekd/vim-dart'
+Bundle 'tpope/vim-rails'
+Bundle 'tpope/vim-endwise'
+Bundle 'slim-template/vim-slim'
 
 " vim-scripts repos
 "Bundle 'indexer.tar.gz'
-
-" non github repos
-"Bundle 'git://git.wincent.com/command-t.git'
-
-
-" Brief help
-" :BundleList          - list configured bundles
-" :BundleInstall(!)    - install(update) bundles
-" :BundleSearch(!) foo - search(or refresh cache first) for foo
-" :BundleClean(!)      - confirm(or auto-approve) removal of unused bundles
 
 
 
@@ -75,7 +71,7 @@ let macvim_skip_cmd_opt_movement = 1
 " Если запущен gvim
 if has("gui_running")
     if has('gui_macvim')
-        set guifont=DejaVu\ Sans\ Mono:h14
+        set guifont=DejaVu\ Sans\ Mono:h16
     else
         set guifont=Monospace
     endif
@@ -254,12 +250,14 @@ set iminsert=0
 set imsearch=0
 
 " Настройки табуляции
-set tabstop=4
-set shiftwidth=4
-set softtabstop=4
+set tabstop=2
+set shiftwidth=2
+set softtabstop=2
 set smarttab
 set expandtab
 set shiftround
+
+autocmd Filetype javascript setlocal tabstop=2 shiftwidth=2 softtabstop=2
 
 " Автоотступы для новых строк
 set autoindent
@@ -315,6 +313,15 @@ let loaded_matchparen = 1
 set noautochdir
 let NERDTreeChDirMode=2
 let NERDTreeDirArrows=1
+let NERDTreeWinSize = 30
+
+function! StartUp()
+    if 0 == argc()
+        NERDTree
+    end
+endfunction
+
+autocmd VimEnter * call StartUp()
 
 if has("gui_running")
     " Подсвечивать текущую строку в GUI режиме
@@ -341,7 +348,6 @@ else
 endif
 
 " При редактировании файла всегда переходить на последнюю известную
-
 " позицию курсора. Если позиция ошибочная - не переходим.
 autocmd BufReadPost *
     \ if line("'\"") > 0 && line("'\"") <= line("$") |
@@ -349,13 +355,13 @@ autocmd BufReadPost *
     \ endif
 
 " Включение автодополнения
-au FileType python set omnifunc=pythoncomplete#Complete
-au FileType php set omnifunc=phpcomplete#CompletePHP
-au FileType html set omnifunc=htmlcomplete#CompleteTag
-au FileType xml set omnifunc=xmlcomplete#CompleteTag
-au FileType javascript set omnifunc=javascriptcomplete#CompleteJ
-au FileType css set omnifunc=csscomplete#CompleteC
-au FileType ruby setl sw=2 sts=2 et
+"au FileType python set omnifunc=pythoncomplete#Complete
+"au FileType php set omnifunc=phpcomplete#CompletePHP
+"au FileType html set omnifunc=htmlcomplete#CompleteTag
+"au FileType xml set omnifunc=xmlcomplete#CompleteTag
+"au FileType javascript set omnifunc=javascriptcomplete#CompleteJ
+"au FileType css set omnifunc=csscomplete#CompleteC
+"au FileType ruby setl sw=2 sts=2 et
 
 au BufNewFile,BufRead *tmp/sql* set syntax=sql
 
@@ -364,21 +370,16 @@ au BufNewFile,BufRead *tmp/sql* set syntax=sql
 au CursorMovedI,InsertLeave * silent! pclose
 
 " Автокоммит при сохранении wiki-файлов
-function! s:commit_wiki()
-    let l:path = VimwikiGet('path')
-    execute 'cd'.l:path
-    "let l:output = system("git init")
-    let l:output = system("git add *.wiki")
-    let l:output = system("git commit -am 'auto update'")
-    let l:output = system("git pull origin master")
-    let l:output = system("git push origin master")
-endfunction
+"function! s:commit_wiki()
+    "let l:path = VimwikiGet('path')
+    "execute 'cd'.l:path
+    "let l:output = system("git add *.wiki")
+    "let l:output = system("git commit -am 'auto update'")
+    "let l:output = system("git pull origin master")
+    "let l:output = system("git push origin master")
+"endfunction
 
-au BufWritePost,FileWritePost,FileAppendPost *.wiki call <SID>commit_wiki()
-
-" Автодополнение по табу
-"let g:SuperTabDefaultCompletionType = '<C-X><C-O>'
-"let g:SuperTabDefaultCompletionType = 'context'
+"au BufWritePost,FileWritePost,FileAppendPost *.wiki call <SID>commit_wiki()
 
 " установка 'leader key'
 let mapleader = ','
@@ -427,15 +428,25 @@ let g:vimwiki_html_header_numbering = 2
 :hi VimwikiHeader6 guifg=#FFFFFF
 
 " UltiSnips
-let g:UltiSnipsSnippetDirectories = ['UltiSnips', 'snippets']
+let g:UltiSnipsSnippetDirectories = ['UltiSnips', 'user-snippets']
 let g:UltiSnipsExpandTrigger = '<tab>'
 let g:UltiSnipsListSnippets = '<a-tab>'
 let g:UltiSnipsJumpForwardTrigger = '<tab>'
 let g:UltiSnipsJumpBackwardTrigger = '<s-tab>'
 
-" Powerline
-"let Powerline_symbols = 'fancy'
-let Powerline_colorscheme = 'timlar'
+" Airline
+let g:airline_theme = 'molokai'
+"let g:airline_powerline_fonts = 1
+let g:airline_enable_branch = 1
+let g:airline_enable_syntastic = 1
+let g:airline_enable_bufferline = 1
+let g:airline#extensions#tabline#fnamemod = ':t'
+
+let g:airline_left_sep = '▶'
+let g:airline_right_sep = '◀'
+let g:airline_linecolumn_prefix = '¶ '
+let g:airline_branch_prefix = '⎇ '
+let g:airline_paste_symbol = 'ρ'
 
 " PHP Doc
 let g:pdv_cfg_Type = 'mixed'
@@ -448,6 +459,8 @@ let g:pdv_cfg_License = 'PHP Version 5.3 {@link http://www.php.net/license/}'
 " Включение режима вклейки
 "set pastetoggle=<f9>
 
+let g:dbext_default_use_result_buffer = 1
+let g:dbext_default_use_sep_result_buffer = 1
 
 
 " --------------------------
@@ -469,6 +482,8 @@ imap <f2> <esc>:w<cr>
 
 map <s-f2> <esc>:retab<cr>:1,$s/[ ]\+$//e<cr>:w<cr>:nohl<cr>
 imap <s-f2> <esc>:retab<cr>:1,$s/[ ]\+$//e<cr>:w<cr>:nohl<cr>
+
+imap <a-bs> <c-w>
 
 " Запуск python приложений по F5
 "imap <silent><f5> <f2><esc>:w\|!python2.7 %<cr>
@@ -705,6 +720,7 @@ nnoremap <leader>fp :set ft=php<cr>:echo "Установлен тип файла
 nnoremap <leader>fm :set ft=mysql<cr>:echo "Установлен тип файла: MySQL"<cr>
 nnoremap <leader>fc :set ft=css<cr>:echo "Установлен тип файла: CSS"<cr>
 nnoremap <leader>fj :set ft=javascript<cr>:echo "Установлен тип файла: JavaScript"<cr>
+nnoremap <leader>fr :set ft=ruby<cr>:echo "Установлен тип файла: Ruby"<cr>
 
 "menu <silent> FileType.php :set ft=php<cr>
 "menu <silent> FileType.html :set ft=html<cr>

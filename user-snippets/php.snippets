@@ -18,7 +18,7 @@ class ${1} ${2:extends ${3}}
 endsnippet
 
 snippet fore "foreach"
-foreach (${1} as ${2} => ${3}) {
+foreach (${1} as ${2}=>${3}) {
     ${4}
 }
 endsnippet
@@ -61,7 +61,7 @@ snippet yt "Yii::t()" w
 Yii::t('${1}', '${VISUAL}${2}')
 endsnippet
 
-snippet yte "<?= Yii::t() ?>" w
+snippet eyt "<?= Yii::t() ?>" w
 <?= Yii::t('${1}', '${VISUAL}${2}') ?>
 endsnippet
 
@@ -70,13 +70,20 @@ snippet com "html comment" w
 endsnippet
 
 snippet > "array item"
-'${1}' => '${2}',
+'${1}' => ${2},
 endsnippet
 
 snippet fun "function() { ...  }"
 ${1:public} ${2:static }function ${3}(${4})
 {
     ${5}
+}
+endsnippet
+
+snippet test "test case function() { ...  }"
+public function test${1}()
+{
+    ${2}
 }
 endsnippet
 
