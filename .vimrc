@@ -62,15 +62,6 @@ let macvim_skip_cmd_opt_movement = 1
 
 " Если запущен gvim
 if has("gui_running")
-    if has('gui_macvim')
-        set guifont=DejaVu\ Sans\ Mono:h16
-    else
-        set guifont=Monospace
-    endif
-
-    "colorscheme vitamins
-    colorscheme railscasts
-
     " Отключаем панель инструментов
     set guioptions-=T
     " Отключаем левый скролл
@@ -91,9 +82,6 @@ if has("gui_running")
     "autocmd VimEnter * silent execute 'source $HOME/.vim/session.vim'
 endif
 
-" Использование цветов для темного фона
-set background=dark
-
 " Включение подсветки синтаксиса
 syntax on
 
@@ -103,6 +91,16 @@ set listchars=tab:→→,trail:·,nbsp:·
 
 " Включение дополнительных цветов
 set t_Co=256
+
+" Использование цветов для темного фона
+set background=dark
+
+" Цветовая схема
+"colorscheme vitamins
+colorscheme railscasts
+
+" Установка шрифта
+set guifont=Droid\ Sans\ Mono\ for\ Powerline:h16
 
 " Языковые установки
 set keymap=russian-jcukenwin
@@ -428,18 +426,12 @@ let g:UltiSnipsJumpForwardTrigger = '<tab>'
 let g:UltiSnipsJumpBackwardTrigger = '<s-tab>'
 
 " Airline
+let g:airline_powerline_fonts = 1
 let g:airline_theme = 'molokai'
-"let g:airline_powerline_fonts = 1
 let g:airline_enable_branch = 1
 let g:airline_enable_syntastic = 1
 let g:airline_enable_bufferline = 1
 let g:airline#extensions#tabline#fnamemod = ':t'
-
-let g:airline_left_sep = '▶'
-let g:airline_right_sep = '◀'
-let g:airline_linecolumn_prefix = '¶ '
-let g:airline_branch_prefix = '⎇ '
-let g:airline_paste_symbol = 'ρ'
 
 " PHP Doc
 let g:pdv_cfg_Type = 'mixed'
