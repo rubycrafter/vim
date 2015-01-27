@@ -54,6 +54,8 @@ Bundle 'vim-scripts/php.vim'
 Bundle 'vim-scripts/vim-coffee-script'
 Bundle 'vim-scripts/vimwiki.git'
 Bundle 'groenewege/vim-less'
+Bundle 'xolox/vim-session'
+Bundle 'xolox/vim-misc'
 
 
 
@@ -61,28 +63,6 @@ filetype plugin on
 filetype plugin indent on
 
 let macvim_skip_cmd_opt_movement = 1
-
-" Если запущен gvim
-if has("gui_running")
-    " Отключаем панель инструментов
-    set guioptions-=T
-    " Отключаем левый скролл
-    set guioptions-=L
-    " Отключаем меню
-    set guioptions-=m
-    " Отключение копирования при выделении
-    set guioptions-=a
-
-    "Антиалиасинг для шрифтов
-    set antialias
-
-    " Опции сессии
-    set sessionoptions=curdir,buffers,tabpages ",resize,winpos,winsize
-
-    " Сохранение сессии
-    autocmd VimLeavePre * silent mksession! $HOME/.vim/session.vim
-    "autocmd VimEnter * silent execute 'source $HOME/.vim/session.vim'
-endif
 
 " Включение подсветки синтаксиса
 syntax on
@@ -103,6 +83,37 @@ colorscheme railscasts
 
 " Установка шрифта
 set guifont=Droid\ Sans\ Mono\ for\ Powerline:h16
+
+" Если запущен gvim
+if has("gui_running")
+    " Отключаем панель инструментов
+    set guioptions-=T
+    " Отключаем левый скролл
+    set guioptions-=L
+    " Отключаем меню
+    set guioptions-=m
+    " Отключение копирования при выделении
+    set guioptions-=a
+    " Отключение GUI вкладок
+    set guioptions-=e
+
+    "Антиалиасинг для шрифтов
+    set antialias
+endif
+
+" Настройки сессий
+set sessionoptions=curdir,buffers,tabpages,folds,options
+
+if has("gui_running")
+  let g:session_autoload = 'yes'
+  let g:session_autosave = 'yes'
+  let g:session_autosave_periodic = 1
+  let g:session_verbose_messages = 0
+else
+  let g:session_autoload = 'no'
+  let g:session_autosave = 'no'
+  let g:session_autosave_periodic = 0
+endif
 
 " Языковые установки
 set keymap=russian-jcukenwin
@@ -142,14 +153,9 @@ set number
 set nowrap
 
 " Фолдинг
-set foldenable
-"set foldmethod=indent
-"set foldmethod=marker
-"set foldmarker={,}
-
-" Сохранение и восстановление фолдинга
-"au BufWinLeave * silent! mkview
-"au BufWinEnter * silent! loadview
+set foldmethod=syntax
+set nofoldenable
+nnoremap <space> za
 
 " Включение поддержки мыши
 set mouse=a
@@ -268,11 +274,6 @@ set complete+=t
 set complete+=k
 set complete+=b
 
-" Включение меню
-"set wildmenu
-"set wildmode=list:longest,full
-"set wcm=<tab>
-
 " Не переносить комментарий при нажатии o/O
 "set formatoptions-=o
 
@@ -283,22 +284,7 @@ set complete+=b
 nnoremap * *N
 
 " Цвет ~
-"highlight NonText ctermfg=bg guifg=bg
-
-" Формат строки состояния
-"set statusline=
-"set statusline+=%(\ %m%)            " флаг 'файл изменен'
-"set statusline+=\ %y                " тип
-"set statusline+=\ %{&ff}            " формат
-"set statusline+=\ %{&fileencoding}  " кодировка
-"set statusline+=\ %F                " полный путь
-"set statusline+=\ %{FileSize()}     " размер
-"set statusline+=\ %r                " флаг 'только для чтения'
-"set statusline+=%=                  " разделитель лево/право
-"set statusline+=%l/%L               " текущая строка / всего строк
-"set statusline+=\ %c                " текущая колонка
-"set statusline+=\ %p%%              " позиция в файле
-"set statusline+=\                   " пробел вконце
+highlight NonText ctermfg=bg guifg=bg
 
 " Отключение подсветки парных скобок
 let loaded_matchparen = 1
@@ -308,13 +294,8 @@ let NERDTreeChDirMode=2
 let NERDTreeDirArrows=1
 let NERDTreeWinSize = 30
 
-function! StartUp()
-    if 0 == argc()
-        NERDTree
-    end
-endfunction
-
-autocmd VimEnter * call StartUp()
+let g:nerdtree_tabs_open_on_gui_startup = 0
+let g:nerdtree_tabs_open_on_new_tab = 0
 
 if has("gui_running")
     " Подсвечивать текущую строку в GUI режиме
@@ -322,13 +303,6 @@ if has("gui_running")
 
     " Подсветка длины строки в 80 символов
     set colorcolumn=81
-
-    " Автоматическое открытие NERDTree
-    if has('gui_macvim')
-        au VimEnter * NERDTree /Users/www/
-    else
-        au VimEnter * NERDTree /home/www/
-    endif
 
     " Подсветка файла под курсором
     let NERDTreeHighlightCursorline=1
@@ -340,6 +314,17 @@ else
     let NERDTreeHighlightCursorline=0
 endif
 
+" Файловый менеджер
+if has('gui_macvim')
+    nmap <f3> :NERDTreeToggle /Users/www/<cr>
+    vmap <f3> <esc>:NERDTreeToggle /Users/www/<cr>
+    imap <f3> <esc>:NERDTreeToggle /Users/www/<cr>
+else
+    nmap <f3> :NERDTreeToggle /home/www/<cr>
+    vmap <f3> <esc>:NERDTreeToggle /home/www/<cr>
+    imap <f3> <esc>:NERDTreeToggle /home/www/<cr>
+endif
+
 " При редактировании файла всегда переходить на последнюю известную
 " позицию курсора. Если позиция ошибочная - не переходим.
 autocmd BufReadPost *
@@ -347,38 +332,17 @@ autocmd BufReadPost *
     \ exe "normal! g`\"" |
     \ endif
 
-" Включение автодополнения
-"au FileType python set omnifunc=pythoncomplete#Complete
-"au FileType php set omnifunc=phpcomplete#CompletePHP
-"au FileType html set omnifunc=htmlcomplete#CompleteTag
-"au FileType xml set omnifunc=xmlcomplete#CompleteTag
-"au FileType javascript set omnifunc=javascriptcomplete#CompleteJ
-"au FileType css set omnifunc=csscomplete#CompleteC
-"au FileType ruby setl sw=2 sts=2 et
-
 au BufNewFile,BufRead *tmp/sql* set syntax=sql
 
 " Автоматически открывать и закрывать окно предпросмотра
 "au CursorMovedI,InsertLeave * if pumvisible() == 0|silent! pclose|endif
 au CursorMovedI,InsertLeave * silent! pclose
 
-" Автокоммит при сохранении wiki-файлов
-"function! s:commit_wiki()
-    "let l:path = VimwikiGet('path')
-    "execute 'cd'.l:path
-    "let l:output = system("git add *.wiki")
-    "let l:output = system("git commit -am 'auto update'")
-    "let l:output = system("git pull origin master")
-    "let l:output = system("git push origin master")
-"endfunction
-
-"au BufWritePost,FileWritePost,FileAppendPost *.wiki call <SID>commit_wiki()
-
 " установка 'leader key'
 let mapleader = ','
 
 " Изменить цвет курсора в консоли при изменении режима ввода
-if &term =~ "xterm" || &term =~ "xterm-256color"
+if &term =~ "xterm" || &term =~ "xterm-256color" || &term =~ "xterm-new"
     let &t_SI = "\<Esc>]12;red\x7"
     let &t_EI = "\<Esc>]12;white\x7"
 endif
@@ -392,9 +356,8 @@ let g:indent_guides_guide_size = 1
 autocmd VimEnter,Colorscheme * :hi IndentGuidesOdd  guibg=grey18 ctermbg=4
 autocmd VimEnter,Colorscheme * :hi IndentGuidesEven guibg=grey18 ctermbg=4
 
-" Если запущен gvim
+" Настройки для Indexer
 if has("gui_running")
-    " Настройки для Indexer
     let g:indexer_ctagsCommandLineOptions = '-h ".php" --exclude=".git/*" --tag-relative=yes --php-kinds=cifv --language-force=php'
     let g:indexer_ctagsDontSpecifyFilesIfPossible = 1
     let g:indexer_disableCtagsWarning = 1
@@ -419,6 +382,17 @@ let g:vimwiki_html_header_numbering = 2
 :hi VimwikiHeader4 guifg=#00FFFF
 :hi VimwikiHeader5 guifg=#FFFF00
 :hi VimwikiHeader6 guifg=#FFFFFF
+
+" Автокоммит при сохранении wiki-файлов
+"function! s:commit_wiki()
+    "let l:path = VimwikiGet('path')
+    "execute 'cd'.l:path
+    "let l:output = system("git add *.wiki")
+    "let l:output = system("git commit -am 'auto update'")
+    "let l:output = system("git pull origin master")
+    "let l:output = system("git push origin master")
+"endfunction
+"au BufWritePost,FileWritePost,FileAppendPost *.wiki call <SID>commit_wiki()
 
 " UltiSnips
 let g:UltiSnipsSnippetDirectories = ['UltiSnips', 'user-snippets']
@@ -556,8 +530,8 @@ highlight default PHPUnitOK term=bold gui=bold ctermbg=DarkGreen ctermfg=White g
 highlight default PHPUnitAssertFail ctermfg=Red guifg=Red
 
 " Привязка клавиш
-imap <silent><f5> <esc>:call RunUnitTest()<cr>
-nmap <silent><f5> <esc>:call RunUnitTest()<cr>
+"imap <silent><f5> <esc>:call RunUnitTest()<cr>
+"nmap <silent><f5> <esc>:call RunUnitTest()<cr>
 
 " Проверка орфографии
 map <leader>ts <esc>:set spell!<cr>:set spell?<cr>
@@ -638,17 +612,6 @@ else
     imap <c-right> <esc><c-w><c-right>
 endif
 
-" Файловый менеджер
-if has('gui_macvim')
-    nmap <f3> :NERDTreeToggle /Users/www/<cr>
-    vmap <f3> <esc>:NERDTreeToggle /Users/www/<cr>
-    imap <f3> <esc>:NERDTreeToggle /Users/www/<cr>
-else
-    nmap <f3> :NERDTreeToggle /home/www/<cr>
-    vmap <f3> <esc>:NERDTreeToggle /home/www/<cr>
-    imap <f3> <esc>:NERDTreeToggle /home/www/<cr>
-endif
-
 " Комментирование кода
 nmap <c-\> ,ci
 vmap <c-\> ,cigv
@@ -712,13 +675,6 @@ nnoremap <leader>fc  :set ft=css<cr>:echo "Установлен тип файл�
 nnoremap <leader>fjs :set ft=javascript<cr>:echo "Установлен тип файла: JavaScript"<cr>
 nnoremap <leader>fjc :set ft=coffee<cr>:echo "Установлен тип файла: CoffeeScript"<cr>
 nnoremap <leader>fr  :set ft=ruby<cr>:echo "Установлен тип файла: Ruby"<cr>
-
-"menu <silent> FileType.php :set ft=php<cr>
-"menu <silent> FileType.html :set ft=html<cr>
-"menu <silent> FileType.mysql :set ft=mysql<cr>
-
-"map <f8> :emenu FileType.<tab><tab>
-
 
 
 
@@ -801,4 +757,3 @@ endfunction
 
 set tabline=%!MyTabLine()
 set guitablabel=%!MyGuiTabLabel()
-

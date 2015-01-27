@@ -7,3 +7,4 @@ view/
 .netrwhist
 session.vim
 bundle/
+sessions/
