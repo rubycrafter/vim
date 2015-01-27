@@ -11,7 +11,8 @@
 "   Основные настройки
 " --------------------------
 
-set shell=bash\ -i
+"set shell=bash\ -i
+set shell=/bin/zsh
 
 " Отключение совместимости с Vi
 set nocompatible
@@ -29,37 +30,28 @@ call vundle#rc()
 Bundle 'gmarik/vundle'
 
 " repos on github
-"Bundle 'gregsexton/MatchTag'
-
 Bundle '2072/PHP-Indenting-for-VIm'
 Bundle 'bling/vim-airline'
 Bundle 'godlygeek/tabular'
 Bundle 'hail2u/vim-css3-syntax'
 Bundle 'leshill/vim-json'
 Bundle 'mattn/emmet-vim.git'
+Bundle 'mileszs/ack.vim'
 Bundle 'nathanaelkane/vim-indent-guides'
 Bundle 'scrooloose/nerdcommenter'
 Bundle 'scrooloose/nerdtree'
+Bundle 'slim-template/vim-slim'
+Bundle 'tpope/vim-endwise'
+Bundle 'tpope/vim-rails'
 Bundle 'tpope/vim-repeat'
 Bundle 'tpope/vim-surround'
+Bundle 'vim-ruby/vim-ruby'
 Bundle 'vim-scripts/PDV--phpDocumentor-for-Vim'
 Bundle 'vim-scripts/UltiSnips.git'
 Bundle 'vim-scripts/guicolorscheme.vim'
 Bundle 'vim-scripts/php.vim'
+Bundle 'vim-scripts/vim-coffee-script'
 Bundle 'vim-scripts/vimwiki.git'
-"Bundle 'vim-scripts/dbext.vim'
-"Bundle 'tpope/vim-fugitive'
-"Bundle 'tomasr/molokai'
-"Bundle 'terryma/vim-multiple-cursors'
-
-"Bundle 'Raimondi/delimitMate'
-"Bundle 'bartekd/vim-dart'
-Bundle 'tpope/vim-rails'
-Bundle 'tpope/vim-endwise'
-Bundle 'slim-template/vim-slim'
-
-" vim-scripts repos
-"Bundle 'indexer.tar.gz'
 
 
 
@@ -76,7 +68,8 @@ if has("gui_running")
         set guifont=Monospace
     endif
 
-    colorscheme vitamins
+    "colorscheme vitamins
+    colorscheme railscasts
 
     " Отключаем панель инструментов
     set guioptions-=T
@@ -276,9 +269,9 @@ set complete+=k
 set complete+=b
 
 " Включение меню
-set wildmenu
-set wildmode=list:longest,full
-set wcm=<tab>
+"set wildmenu
+"set wildmode=list:longest,full
+"set wcm=<tab>
 
 " Не переносить комментарий при нажатии o/O
 "set formatoptions-=o
@@ -408,7 +401,7 @@ if has("gui_running")
 endif
 
 " Настройки ZenCoding'а
-let g:user_zen_settings = {'indentation': '    '}
+let g:user_zen_settings = {'indentation': '  '}
 let g:use_zen_complete_tag = 1
 
 " VimWiki
@@ -714,13 +707,14 @@ nnoremap <c-p> :call PhpDocSingle()<cr>
 vnoremap <c-p> :call PhpDocRange()<cr>
 
 " Установка ипа файла
-nnoremap <leader>fh :set ft=html<cr>:echo "Установлен тип файла: HTML"<cr>
-nnoremap <leader>fx :set ft=xml<cr>:echo "Установлен тип файла: XML"<cr>
-nnoremap <leader>fp :set ft=php<cr>:echo "Установлен тип файла: PHP"<cr>
-nnoremap <leader>fm :set ft=mysql<cr>:echo "Установлен тип файла: MySQL"<cr>
-nnoremap <leader>fc :set ft=css<cr>:echo "Установлен тип файла: CSS"<cr>
-nnoremap <leader>fj :set ft=javascript<cr>:echo "Установлен тип файла: JavaScript"<cr>
-nnoremap <leader>fr :set ft=ruby<cr>:echo "Установлен тип файла: Ruby"<cr>
+nnoremap <leader>fh  :set ft=html<cr>:echo "Установлен тип файла: HTML"<cr>
+nnoremap <leader>fx  :set ft=xml<cr>:echo "Установлен тип файла: XML"<cr>
+nnoremap <leader>fp  :set ft=php<cr>:echo "Установлен тип файла: PHP"<cr>
+nnoremap <leader>fm  :set ft=mysql<cr>:echo "Установлен тип файла: MySQL"<cr>
+nnoremap <leader>fc  :set ft=css<cr>:echo "Установлен тип файла: CSS"<cr>
+nnoremap <leader>fjs :set ft=javascript<cr>:echo "Установлен тип файла: JavaScript"<cr>
+nnoremap <leader>fjc :set ft=coffee<cr>:echo "Установлен тип файла: CoffeeScript"<cr>
+nnoremap <leader>fr  :set ft=ruby<cr>:echo "Установлен тип файла: Ruby"<cr>
 
 "menu <silent> FileType.php :set ft=php<cr>
 "menu <silent> FileType.html :set ft=html<cr>
