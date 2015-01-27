@@ -41,6 +41,7 @@ Bundle 'nathanaelkane/vim-indent-guides'
 Bundle 'scrooloose/nerdcommenter'
 Bundle 'scrooloose/nerdtree'
 Bundle 'slim-template/vim-slim'
+Bundle 'tpope/vim-bundler'
 Bundle 'tpope/vim-endwise'
 Bundle 'tpope/vim-rails'
 Bundle 'tpope/vim-repeat'
@@ -52,6 +53,7 @@ Bundle 'vim-scripts/guicolorscheme.vim'
 Bundle 'vim-scripts/php.vim'
 Bundle 'vim-scripts/vim-coffee-script'
 Bundle 'vim-scripts/vimwiki.git'
+Bundle 'groenewege/vim-less'
 
 
 
@@ -431,6 +433,9 @@ let g:airline_theme = 'molokai'
 let g:airline_enable_branch = 1
 let g:airline_enable_syntastic = 1
 let g:airline_enable_bufferline = 1
+let g:airline#extensions#tabline#enabled = 1
+let g:airline#extensions#tabline#show_tabs = 1
+let g:airline#extensions#tabline#show_buffers = 0
 let g:airline#extensions#tabline#fnamemod = ':t'
 
 " PHP Doc
