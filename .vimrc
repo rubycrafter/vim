@@ -12,7 +12,7 @@
 " --------------------------
 
 "set shell=bash\ -i
-set shell=/bin/zsh
+set shell=/bin/zsh\ -i
 
 " Отключение совместимости с Vi
 set nocompatible
@@ -90,12 +90,19 @@ if has("gui_running")
     set guioptions-=T
     " Отключаем левый скролл
     set guioptions-=L
+    set guioptions-=l
+    " Отключаем правый скролл
+    set guioptions-=R
+    set guioptions-=r
     " Отключаем меню
     set guioptions-=m
     " Отключение копирования при выделении
     set guioptions-=a
     " Отключение GUI вкладок
     set guioptions-=e
+
+    " Использовать консольные диалоги
+    set guioptions+=c
 
     "Антиалиасинг для шрифтов
     set antialias
@@ -107,12 +114,10 @@ set sessionoptions=curdir,buffers,tabpages,folds,options
 if has("gui_running")
   let g:session_autoload = 'yes'
   let g:session_autosave = 'yes'
-  let g:session_autosave_periodic = 1
-  let g:session_verbose_messages = 0
+  let g:session_verbose_messages = 1
 else
   let g:session_autoload = 'no'
   let g:session_autosave = 'no'
-  let g:session_autosave_periodic = 0
 endif
 
 " Языковые установки
@@ -290,8 +295,9 @@ highlight NonText ctermfg=bg guifg=bg
 let loaded_matchparen = 1
 
 set noautochdir
-let NERDTreeChDirMode=2
-let NERDTreeDirArrows=1
+let NERDTreeChDirMode = 2
+let NERDTreeDirArrows = 1
+let NERDTreeMinimalUI = 1
 let NERDTreeWinSize = 30
 
 let g:nerdtree_tabs_open_on_gui_startup = 0
@@ -313,6 +319,10 @@ else
     " Отключение подсветки файла под курсором
     let NERDTreeHighlightCursorline=0
 endif
+
+nmap <silent><s-f3> :NERDTreeFind<cr>
+vmap <silent><s-f3> <esc>:NERDTreeFind<cr>
+imap <silent><s-f3> <esc>:NERDTreeFind<cr>
 
 " Файловый менеджер
 if has('gui_macvim')
@@ -363,9 +373,9 @@ if has("gui_running")
     let g:indexer_disableCtagsWarning = 1
 endif
 
-" Настройки ZenCoding'а
-let g:user_zen_settings = {'indentation': '  '}
-let g:use_zen_complete_tag = 1
+" Настройки Emmet
+let g:user_emmet_settings = {'indentation': '  '}
+let g:use_emmet_complete_tag = 1
 
 " VimWiki
 let wiki = {}

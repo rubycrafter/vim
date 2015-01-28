@@ -38,15 +38,23 @@ snippet e "<?= ... ?>" w
 endsnippet
 
 snippet di "die" w
-die(${VISUAL}${1});
+die;
+endsnippet
+
+snippet vdd "var_dump and die" w
+var_dump(${VISUAL}${1}); die;
+endsnippet
+
+snippet vd "var_dump" w
+var_dump(${VISUAL}${1});
+endsnippet
+
+snippet dd "dump and die" w
+dump(${VISUAL}${1}); die;
 endsnippet
 
 snippet d "dump" w
 dump(${VISUAL}${1});
-endsnippet
-
-snippet dd "dump and die" w
-dump(${VISUAL}${1}); die();
 endsnippet
 
 snippet c "console" w
