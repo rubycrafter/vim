@@ -56,6 +56,7 @@ Bundle 'vim-scripts/vimwiki.git'
 Bundle 'groenewege/vim-less'
 Bundle 'xolox/vim-session'
 Bundle 'xolox/vim-misc'
+Bundle 'ngmy/vim-rubocop'
 
 
 
@@ -158,7 +159,8 @@ set number
 set nowrap
 
 " Фолдинг
-set foldmethod=syntax
+"set foldmethod=syntax
+set foldmethod=indent
 set nofoldenable
 nnoremap <space> za
 
@@ -265,7 +267,7 @@ autocmd Filetype javascript setlocal tabstop=2 shiftwidth=2 softtabstop=2
 
 " Автоотступы для новых строк
 set autoindent
-set nosmartindent
+set smartindent
 
 " Отслеживать изменения файлов
 set autoread
@@ -435,6 +437,11 @@ let g:pdv_cfg_License = 'PHP Version 5.3 {@link http://www.php.net/license/}'
 
 let g:dbext_default_use_result_buffer = 1
 let g:dbext_default_use_sep_result_buffer = 1
+
+" RuboCop
+let g:vimrubocop_keymap = 0
+nmap <silent><leader>r :RuboCop<cr>
+
 
 
 " --------------------------
