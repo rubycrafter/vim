@@ -26,17 +26,17 @@ let g:colors_name = "railscasts"
 " Light Green  #A5C261
 " Tan          #FFC66D
 
-hi Normal                    guifg=#E6E1DC guibg=#2B2B2B ctermfg=white ctermbg=234
-hi Cursor                    guifg=#000000 guibg=#FFFFFF ctermfg=0 ctermbg=15	
-hi CursorLine                guibg=#333435 ctermbg=235 cterm=NONE
-hi Search                    guibg=#5A647E ctermfg=NONE ctermbg=236 cterm=underline
-hi Visual                    guibg=#5A647E ctermbg=60
-hi LineNr                    guifg=#888888 ctermfg=242
-hi StatusLine                guibg=#414243 gui=NONE guifg=#E6E1DC
+hi Normal                    guifg=grey90 guibg=#2B2B2B ctermfg=white ctermbg=234
+hi Cursor                    guifg=black guibg=white ctermfg=0 ctermbg=15
+hi Search                    guibg=orange ctermfg=NONE ctermbg=236 cterm=NONE
+hi Visual                    guibg=grey30 ctermbg=60
+hi LineNr                    guifg=grey30 ctermfg=242
+hi StatusLine                guibg=#414243 gui=NONE guifg=grey90
 hi StatusLineNC              guibg=#414243 gui=NONE
-hi VertSplit                 guibg=#414243 gui=NONE guifg=#414243
-hi CursorLineNr              guifg=#bbbbbb ctermfg=248
-hi ColorColumn               guibg=#333435 ctermbg=235
+hi VertSplit                 guifg=#333333 guibg=#333333 gui=NONE ctermbg=235 ctermfg=235
+hi CursorLine                guibg=grey20 ctermbg=235 cterm=NONE
+hi CursorLineNr              guifg=grey40 ctermfg=248
+hi ColorColumn               guibg=grey20 ctermbg=235
 
 " Folds
 " -----
@@ -45,13 +45,13 @@ hi Folded                    guifg=#F6F3E8 guibg=#444444 gui=NONE
 
 " Invisible Characters
 " ------------------
-hi NonText                   guifg=#777777 gui=NONE
+hi NonText                   ctermfg=bg guifg=bg gui=NONE
 hi SpecialKey                guifg=#777777 gui=NONE
 
 " Misc
 " ----
 " directory names and other special names in listings
-hi Directory                 guifg=#A5C261 gui=NONE
+hi Directory                 guifg=#6D9CBE gui=NONE ctermfg=137
 
 " Popup Menu
 " ----------
@@ -122,8 +122,8 @@ hi Title                     guifg=#FFFFFF ctermfg=15
 "rubyConstant
 hi Type                      guifg=#DA4939 gui=NONE
 
-hi DiffAdd                   guifg=#E6E1DC guibg=#144212
-hi DiffDelete                guifg=#E6E1DC guibg=#660000
+hi DiffAdd                   guifg=grey90 guibg=#144212
+hi DiffDelete                guifg=grey90 guibg=#660000
 
 hi link htmlTag              xmlTag
 hi link htmlTagName          xmlTagName
@@ -133,3 +133,19 @@ hi xmlTag                    guifg=#E8BF6A
 hi xmlTagName                guifg=#E8BF6A
 hi xmlEndTag                 guifg=#E8BF6A
 
+
+
+" timlar custom
+
+hi VimwikiHeader1            guifg=#FF0000
+hi VimwikiHeader2            guifg=#00FF00
+hi VimwikiHeader3            guifg=#FF00FF
+hi VimwikiHeader4            guifg=#00FFFF
+hi VimwikiHeader5            guifg=#FFFF00
+hi VimwikiHeader6            guifg=#FFFFFF
+
+hi NERDTreeDirSlash          guifg=#2B2B2B
+hi NERDTreeFile              guifg=grey90
+hi NERDTreeDir               guifg=tan1 gui=NONE ctermfg=137
+hi NERDTreeClosable          guifg=grey gui=NONE ctermfg=137
+hi link NERDTreeOpenable     NERDTreeClosable

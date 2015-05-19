@@ -1,4 +1,3 @@
-"
 " Конфигурация vim
 " Автор: Дмитрий Гречуха (dmitriy.grechukha@gmail.com)
 "
@@ -12,7 +11,7 @@
 " --------------------------
 
 "set shell=bash\ -i
-set shell=/bin/zsh\ -i
+set shell=/bin/zsh
 
 " Отключение совместимости с Vi
 set nocompatible
@@ -23,40 +22,41 @@ filetype off
 
 
 " Подключение Vundle
-set rtp+=~/.vim/bundle/vundle/
-call vundle#rc()
+set rtp+=~/.vim/bundle/Vundle.vim
+call vundle#begin()
 
-" let Vundle manage Vundle
-Bundle 'gmarik/vundle'
+" Plugins {{{
+Plugin 'gmarik/Vundle.vim'
 
-" repos on github
-Bundle '2072/PHP-Indenting-for-VIm'
-Bundle 'bling/vim-airline'
-Bundle 'godlygeek/tabular'
-Bundle 'hail2u/vim-css3-syntax'
-Bundle 'leshill/vim-json'
-Bundle 'mattn/emmet-vim.git'
-Bundle 'mileszs/ack.vim'
-Bundle 'nathanaelkane/vim-indent-guides'
-Bundle 'scrooloose/nerdcommenter'
-Bundle 'scrooloose/nerdtree'
-Bundle 'slim-template/vim-slim'
-Bundle 'tpope/vim-bundler'
-Bundle 'tpope/vim-endwise'
-Bundle 'tpope/vim-rails'
-Bundle 'tpope/vim-repeat'
-Bundle 'tpope/vim-surround'
-Bundle 'vim-ruby/vim-ruby'
-Bundle 'vim-scripts/PDV--phpDocumentor-for-Vim'
-Bundle 'vim-scripts/UltiSnips.git'
-Bundle 'vim-scripts/guicolorscheme.vim'
-Bundle 'vim-scripts/php.vim'
-Bundle 'vim-scripts/vim-coffee-script'
-Bundle 'vim-scripts/vimwiki.git'
-Bundle 'groenewege/vim-less'
-Bundle 'xolox/vim-session'
-Bundle 'xolox/vim-misc'
-Bundle 'ngmy/vim-rubocop'
+Plugin '2072/PHP-Indenting-for-VIm'
+Plugin 'Yggdroot/indentLine'
+Plugin 'bling/vim-airline'
+Plugin 'groenewege/vim-less'
+Plugin 'hail2u/vim-css3-syntax'
+Plugin 'junegunn/vim-easy-align'
+Plugin 'leshill/vim-json'
+Plugin 'mattn/emmet-vim.git'
+Plugin 'mileszs/ack.vim'
+Plugin 'scrooloose/nerdcommenter'
+Plugin 'scrooloose/nerdtree'
+Plugin 'slim-template/vim-slim'
+Plugin 'terryma/vim-multiple-cursors'
+Plugin 'tpope/vim-endwise'
+Plugin 'tpope/vim-markdown'
+Plugin 'tpope/vim-rails'
+Plugin 'tpope/vim-repeat'
+Plugin 'tpope/vim-surround'
+Plugin 'vim-ruby/vim-ruby'
+Plugin 'vim-scripts/UltiSnips.git'
+Plugin 'vim-scripts/guicolorscheme.vim'
+Plugin 'vim-scripts/php.vim'
+Plugin 'vim-scripts/vim-coffee-script'
+Plugin 'vim-scripts/vimwiki.git'
+Plugin 'xolox/vim-misc'
+Plugin 'xolox/vim-session'
+" }}}
+
+call vundle#end()
 
 
 
@@ -87,26 +87,24 @@ set guifont=Droid\ Sans\ Mono\ for\ Powerline:h16
 
 " Если запущен gvim
 if has("gui_running")
-    " Отключаем панель инструментов
-    set guioptions-=T
-    " Отключаем левый скролл
-    set guioptions-=L
-    set guioptions-=l
-    " Отключаем правый скролл
-    set guioptions-=R
-    set guioptions-=r
-    " Отключаем меню
-    set guioptions-=m
-    " Отключение копирования при выделении
-    set guioptions-=a
-    " Отключение GUI вкладок
-    set guioptions-=e
-
-    " Использовать консольные диалоги
-    set guioptions+=c
-
-    "Антиалиасинг для шрифтов
-    set antialias
+  " Отключаем панель инструментов
+  set guioptions-=T
+  " Отключаем левый скролл
+  set guioptions-=L
+  set guioptions-=l
+  " Отключаем правый скролл
+  set guioptions-=R
+  set guioptions-=r
+  " Отключаем меню
+  set guioptions-=m
+  " Отключение копирования при выделении
+  set guioptions-=a
+  " Отключение GUI вкладок
+  set guioptions-=e
+  " Использовать консольные диалоги
+  set guioptions+=c
+  "Антиалиасинг для шрифтов
+  set antialias
 endif
 
 " Настройки сессий
@@ -159,10 +157,9 @@ set number
 set nowrap
 
 " Фолдинг
-"set foldmethod=syntax
-set foldmethod=indent
 set nofoldenable
-nnoremap <space> za
+"set foldmethod=syntax
+"set foldmethod=indent
 
 " Включение поддержки мыши
 set mouse=a
@@ -290,9 +287,6 @@ set complete+=b
 " При подсвечивании не переходить к следующему результату
 nnoremap * *N
 
-" Цвет ~
-highlight NonText ctermfg=bg guifg=bg
-
 " Отключение подсветки парных скобок
 let loaded_matchparen = 1
 
@@ -301,25 +295,27 @@ let NERDTreeChDirMode = 2
 let NERDTreeDirArrows = 1
 let NERDTreeMinimalUI = 1
 let NERDTreeWinSize = 30
+let NERDTreeAutoDeleteBuffer = 1
 
 let g:nerdtree_tabs_open_on_gui_startup = 0
 let g:nerdtree_tabs_open_on_new_tab = 0
 
 if has("gui_running")
-    " Подсвечивать текущую строку в GUI режиме
-    set cursorline
+  " Подсвечивать текущую строку в GUI режиме
+  set cursorline
 
-    " Подсветка длины строки в 80 символов
-    set colorcolumn=81
+  " Подсветка длины строки в 80 символов
+  "execute 'set colorcolumn=' . join(range(81,335), ',')
+  set colorcolumn=81
 
-    " Подсветка файла под курсором
-    let NERDTreeHighlightCursorline=1
+  " Подсветка файла под курсором
+  let NERDTreeHighlightCursorline=1
 else
-    " Не подсвечивать текущую строку в консоли
-    set nocursorline
+  " Не подсвечивать текущую строку в консоли
+  set nocursorline
 
-    " Отключение подсветки файла под курсором
-    let NERDTreeHighlightCursorline=0
+  " Отключение подсветки файла под курсором в NERDTree
+  let NERDTreeHighlightCursorline=0
 endif
 
 nmap <silent><s-f3> :NERDTreeFind<cr>
@@ -328,23 +324,17 @@ imap <silent><s-f3> <esc>:NERDTreeFind<cr>
 
 " Файловый менеджер
 if has('gui_macvim')
-    nmap <f3> :NERDTreeToggle /Users/www/<cr>
-    vmap <f3> <esc>:NERDTreeToggle /Users/www/<cr>
-    imap <f3> <esc>:NERDTreeToggle /Users/www/<cr>
-else
-    nmap <f3> :NERDTreeToggle /home/www/<cr>
-    vmap <f3> <esc>:NERDTreeToggle /home/www/<cr>
-    imap <f3> <esc>:NERDTreeToggle /home/www/<cr>
+  nmap <f3> :NERDTreeToggle /www/<cr>
+  vmap <f3> <esc>:NERDTreeToggle /www/<cr>
+  imap <f3> <esc>:NERDTreeToggle /www/<cr>
 endif
 
 " При редактировании файла всегда переходить на последнюю известную
 " позицию курсора. Если позиция ошибочная - не переходим.
 autocmd BufReadPost *
-    \ if line("'\"") > 0 && line("'\"") <= line("$") |
-    \ exe "normal! g`\"" |
-    \ endif
-
-au BufNewFile,BufRead *tmp/sql* set syntax=sql
+  \ if line("'\"") > 0 && line("'\"") <= line("$") |
+  \ exe "normal! g`\"" |
+  \ endif
 
 " Автоматически открывать и закрывать окно предпросмотра
 "au CursorMovedI,InsertLeave * if pumvisible() == 0|silent! pclose|endif
@@ -355,54 +345,35 @@ let mapleader = ','
 
 " Изменить цвет курсора в консоли при изменении режима ввода
 if &term =~ "xterm" || &term =~ "xterm-256color" || &term =~ "xterm-new"
-    let &t_SI = "\<Esc>]12;red\x7"
-    let &t_EI = "\<Esc>]12;white\x7"
-endif
-
-" Настройки подсветки отступов
-let g:indent_guides_enable_on_vim_startup = 0
-let g:indent_guides_auto_colors = 0
-let g:indent_guides_color_change_percent = 5
-let g:indent_guides_guide_size = 1
-
-autocmd VimEnter,Colorscheme * :hi IndentGuidesOdd  guibg=grey18 ctermbg=4
-autocmd VimEnter,Colorscheme * :hi IndentGuidesEven guibg=grey18 ctermbg=4
-
-" Настройки для Indexer
-if has("gui_running")
-    let g:indexer_ctagsCommandLineOptions = '-h ".php" --exclude=".git/*" --tag-relative=yes --php-kinds=cifv --language-force=php'
-    let g:indexer_ctagsDontSpecifyFilesIfPossible = 1
-    let g:indexer_disableCtagsWarning = 1
+  let &t_SI = "\<Esc>]12;red\x7"
+  let &t_EI = "\<Esc>]12;white\x7"
 endif
 
 " Настройки Emmet
 let g:user_emmet_settings = {'indentation': '  '}
 let g:use_emmet_complete_tag = 1
 
+" IndentLine
+let g:indentLine_enabled = 0
+let g:indentLine_indentLevel = 20
+
 " VimWiki
 let wiki = {}
 let wiki.path = '~/.vim/wiki/'
-let wiki.nested_syntaxes = {'python': 'python', 'php': 'php', 'css': 'css', 'javascript': 'javascript', 'html': 'html', 'mysql': 'mysql'}
+let wiki.nested_syntaxes = {'ruby': 'ruby', 'php': 'php', 'css': 'css', 'javascript': 'javascript', 'html': 'html', 'mysql': 'mysql'}
 let g:vimwiki_list = [wiki]
 let g:vimwiki_camel_case = 0
 let g:vimwiki_browsers = ['google-chrome']
 let g:vimwiki_html_header_numbering = 2
 
-:hi VimwikiHeader1 guifg=#FF0000
-:hi VimwikiHeader2 guifg=#00FF00
-:hi VimwikiHeader3 guifg=#FF00FF
-:hi VimwikiHeader4 guifg=#00FFFF
-:hi VimwikiHeader5 guifg=#FFFF00
-:hi VimwikiHeader6 guifg=#FFFFFF
-
 " Автокоммит при сохранении wiki-файлов
 "function! s:commit_wiki()
-    "let l:path = VimwikiGet('path')
-    "execute 'cd'.l:path
-    "let l:output = system("git add *.wiki")
-    "let l:output = system("git commit -am 'auto update'")
-    "let l:output = system("git pull origin master")
-    "let l:output = system("git push origin master")
+  "let l:path = VimwikiGet('path')
+  "execute 'cd'.l:path
+  "let l:output = system("git add *.wiki")
+  "let l:output = system("git commit -am 'auto update'")
+  "let l:output = system("git pull origin master")
+  "let l:output = system("git push origin master")
 "endfunction
 "au BufWritePost,FileWritePost,FileAppendPost *.wiki call <SID>commit_wiki()
 
@@ -416,31 +387,13 @@ let g:UltiSnipsJumpBackwardTrigger = '<s-tab>'
 " Airline
 let g:airline_powerline_fonts = 1
 let g:airline_theme = 'molokai'
-let g:airline_enable_branch = 1
-let g:airline_enable_syntastic = 1
-let g:airline_enable_bufferline = 1
 let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#tabline#show_tabs = 1
 let g:airline#extensions#tabline#show_buffers = 0
 let g:airline#extensions#tabline#fnamemod = ':t'
 
-" PHP Doc
-let g:pdv_cfg_Type = 'mixed'
-let g:pdv_cfg_Package = ''
-let g:pdv_cfg_Version = '$id$'
-let g:pdv_cfg_Author = 'Dmitriy Grechukha <dmitriy.grechukha@gmail.com>'
-let g:pdv_cfg_Copyright = 'Dmitriy Grechukha'
-let g:pdv_cfg_License = 'PHP Version 5.3 {@link http://www.php.net/license/}'
-
-" Включение режима вклейки
-"set pastetoggle=<f9>
-
 let g:dbext_default_use_result_buffer = 1
 let g:dbext_default_use_sep_result_buffer = 1
-
-" RuboCop
-let g:vimrubocop_keymap = 0
-nmap <silent><leader>r :RuboCop<cr>
 
 
 
@@ -450,9 +403,6 @@ nmap <silent><leader>r :RuboCop<cr>
 
 " Открытие конфига по ,v
 map <silent><leader>v :tabf ~/.vimrc<cr>
-
-" Обновление сниппетов
-map <silent><leader>sm :call ReloadAllSnippets()<cr>:echo "Сниппеты перезагружены"<cr>
 
 " Выход из редактора по двойному Esc
 map <esc><esc> <esc>:q!<cr>
@@ -464,91 +414,9 @@ imap <f2> <esc>:w<cr>
 map <s-f2> <esc>:retab<cr>:1,$s/[ ]\+$//e<cr>:w<cr>:nohl<cr>
 imap <s-f2> <esc>:retab<cr>:1,$s/[ ]\+$//e<cr>:w<cr>:nohl<cr>
 
-imap <a-bs> <c-w>
-
-" Запуск python приложений по F5
-"imap <silent><f5> <f2><esc>:w\|!python2.7 %<cr>
-"nmap <silent><f5> <f2>:w\|!python2.7 %<cr>
-
-
-
-
-" Запуск unit-теста
-function! RunUnitTest()
-    " Если находимся в окне предпросмотра ...
-    if &previewwindow
-        " Удаляем буфер
-        bdelete
-        " Закрываем окно предпросмотра
-        pclose
-        " Очищаем командную строку
-        echo ''
-        " Завершаем работу
-        return
-    endif
-
-    " Если не найден паттерн теста ...
-    if len(matchstr(expand('%:p'), 'tests/unit')) == 0
-        " Завершаем работу
-        return
-    endif
-
-    echo 'Тест запущен...'
-
-    redraw
-
-    " Получаем путь, имя файла и выполняем тест
-    let l:path = substitute(expand('%:p'), 'unit.*$', '', 'g')
-    let l:file = substitute(expand('%:p'), '^.*tests/', '', 'g')
-    let l:output = system('cd '.l:path.' && phpunit '.l:file)
-
-    " Создаем новое окно предпросмотра
-    silent pedit! 'PHPUnit'
-
-    " Переключаемся на окно предпросмотра
-    wincmd P
-
-    " Устанавливаем параметры окна
-    setlocal buftype=nofile
-    setlocal bufhidden=hide
-    setlocal modifiable
-
-    " Вставляем в окно результат работы phpunit
-    silent put = l:output
-
-    " Удаляем первую пустую строку ...
-    execute ':1d'
-    " ... и строку с файлом конфигурации
-    execute ':2,3d'
-
-    " Изменяем размер окна предпросмотра под размер текста
-    silent execute 'resize '.line('$')
-
-    " Подсветка результатов
-    call matchadd('PHPUnitBold', '^PHPUnit.*$')
-    call matchadd('PHPUnitBold', '^There was.*failure.*$')
-    call matchadd('PHPUnitFail', '^FAILURES.*$')
-    call matchadd('PHPUnitOK', '^OK .*$')
-    call matchadd('PHPUnitAssertFail', '^Failed asserting.*$')
-
-    " Запрет редактирования текста в окне
-    setlocal nomodifiable
-
-    " Переход наверх
-    execute 'normal gg'
-
-    echo 'Тест завершен!'
-endfunction
-
-" Цвета для подсветки результатов
-highlight default PHPUnitBold term=bold gui=bold
-highlight default PHPUnitFail term=bold gui=bold ctermbg=Red ctermfg=White guibg=Red guifg=White
-highlight default PHPUnitOK term=bold gui=bold ctermbg=DarkGreen ctermfg=White guibg=DarkGreen guifg=White
-highlight default PHPUnitAssertFail ctermfg=Red guifg=Red
-
-" Привязка клавиш
-"imap <silent><f5> <esc>:call RunUnitTest()<cr>
-"nmap <silent><f5> <esc>:call RunUnitTest()<cr>
+" Запуск Ruby приложений по F5
+imap <silent><f5> <f2><esc>:w\|!ruby %<cr>
+nmap <silent><f5> <f2>:w\|!ruby %<cr>
 
 " Проверка орфографии
 map <leader>ts <esc>:set spell!<cr>:set spell?<cr>
@@ -563,26 +431,22 @@ nmap <c-t> <c-rightmouse>
 nmap <silent> <leader>tn :tabnew<cr>
 
 " Предыдущая вкладка
-map <D-left> :tabp<cr>
-nmap <D-left> :tabp<cr>
-imap <D-left> <esc>:tabp<cr>i
+map <d-left> :tabp<cr>
+nmap <d-left> :tabp<cr>
+imap <d-left> <esc>:tabp<cr>i
 
 map <c-a-left> :tabp<cr>
 nmap <c-a-left> :tabp<cr>
 imap <c-a-left> <esc>:tabp<cr>i
 
 " Следующая вкладка
-map <D-right> :tabn<cr>
-nmap <D-right> :tabn<cr>
-imap <D-right> <esc>:tabn<cr>i
+map <d-right> :tabn<cr>
+nmap <d-right> :tabn<cr>
+imap <d-right> <esc>:tabn<cr>i
 
 map <c-a-right> :tabn<cr>
 nmap <c-a-right> :tabn<cr>
 imap <c-a-right> <esc>:tabn<cr>i
-
-" Перемещение закладок по Alt+СтрелкаВлево и Alt+СтрелкаВправо
-"nnoremap <silent> <a-left> :execute 'silent! tabmove ' . (tabpagenr()-2)<cr>
-"nnoremap <silent> <a-right> :execute 'silent! tabmove ' . tabpagenr()<cr>
 
 " Копирование и вставка в глобальный клипбоард
 vmap <c-insert> "+y
@@ -600,9 +464,7 @@ vnoremap < <gv
 vnoremap > >gv
 
 " Автоматическая табуляция
-vmap <leader>a= :Tabularize /=<cr>
-vmap <leader>a: :Tabularize /:<cr>
-vmap <leader>a> :Tabularize /=><cr>
+vmap <Enter> <Plug>(EasyAlign)
 
 " По нажатию Enter переводить строку в нормальном режиме
 nmap <cr> O<down><esc>
@@ -610,29 +472,32 @@ nmap <s-cr> O<down><esc>
 
 " Перемещение между окнами по Ctrl+Стрелки
 if has('gui_macvim')
-    map <m-down> <c-w><down>
-    imap <m-down> <esc><c-w><c-down>
-    map <m-up> <c-w><up>
-    imap <m-up> <esc><c-w><c-up>
-    map <m-left> <c-w><left>
-    imap <m-left> <esc><c-w><c-left>
-    map <m-right> <c-w><right>
-    imap <m-right> <esc><c-w><c-right>
+  map <m-down> <c-w><down>
+  imap <m-down> <esc><c-w><c-down>
+  map <m-up> <c-w><up>
+  imap <m-up> <esc><c-w><c-up>
+  map <m-left> <c-w><left>
+  imap <m-left> <esc><c-w><c-left>
+  map <m-right> <c-w><right>
+  imap <m-right> <esc><c-w><c-right>
 else
-    map <c-down> <c-w><down>
-    imap <c-down> <esc><c-w><c-down>
-    map <c-up> <c-w><up>
-    imap <c-up> <esc><c-w><c-up>
-    map <c-left> <c-w><left>
-    imap <c-left> <esc><c-w><c-left>
-    map <c-right> <c-w><right>
-    imap <c-right> <esc><c-w><c-right>
+  map <c-down> <c-w><down>
+  imap <c-down> <esc><c-w><c-down>
+  map <c-up> <c-w><up>
+  imap <c-up> <esc><c-w><c-up>
+  map <c-left> <c-w><left>
+  imap <c-left> <esc><c-w><c-left>
+  map <c-right> <c-w><right>
+  imap <c-right> <esc><c-w><c-right>
 endif
 
 " Комментирование кода
 nmap <c-\> ,ci
 vmap <c-\> ,cigv
 imap <c-\> <esc>,cii
+nmap <d-\> ,ci
+vmap <d-\> ,cigv
+imap <d-\> <esc>,cii
 nmap « ,ci
 vmap « ,cigv
 imap « <esc>,cii
@@ -663,9 +528,6 @@ nmap <leader><right> :rightbelow vnew<cr>
 nmap <leader><up> :leftabove new<cr>
 nmap <leader><down> :rightbelow new<cr>
 
-" Автодополнение слова
-inoremap <c-space> <c-n>
-
 " В визуальном режиме по команде * подсвечивать выделение
 vnoremap * y :execute ":let @/=@\""<cr> :execute "set hlsearch"<cr>
 
@@ -675,24 +537,19 @@ map <silent><leader>h <esc>:let @/ = ""<cr>:nohl<cr>:echo "Подсветка в
 " Сортировка css свойств
 noremap <silent><leader>ss <esc>vi{:!sort<cr>:echo "Свойства css отсортированы!"<cr>
 
-" Форматирование css
-noremap <silent><leader>ct <esc>:%!~/.vim/plugin/cssformatter.py<cr>:echo "Свойства css отформатированы!"<cr>
-
-" phpDoc
-inoremap <c-p> <esc>:call PhpDocSingle()<cr>i
-nnoremap <c-p> :call PhpDocSingle()<cr>
-vnoremap <c-p> :call PhpDocRange()<cr>
-
 " Установка ипа файла
 nnoremap <leader>fh  :set ft=html<cr>:echo "Установлен тип файла: HTML"<cr>
 nnoremap <leader>fx  :set ft=xml<cr>:echo "Установлен тип файла: XML"<cr>
 nnoremap <leader>fp  :set ft=php<cr>:echo "Установлен тип файла: PHP"<cr>
-nnoremap <leader>fm  :set ft=mysql<cr>:echo "Установлен тип файла: MySQL"<cr>
+nnoremap <leader>fms :set ft=mysql<cr>:echo "Установлен тип файла: MySQL"<cr>
 nnoremap <leader>fc  :set ft=css<cr>:echo "Установлен тип файла: CSS"<cr>
 nnoremap <leader>fjs :set ft=javascript<cr>:echo "Установлен тип файла: JavaScript"<cr>
 nnoremap <leader>fjc :set ft=coffee<cr>:echo "Установлен тип файла: CoffeeScript"<cr>
 nnoremap <leader>fr  :set ft=ruby<cr>:echo "Установлен тип файла: Ruby"<cr>
+nnoremap <leader>fmd :set ft=markdown<cr>:echo "Установлен тип файла: Markdown"<cr>
 
+" IndentLine
+nmap <leader>i :IndentLinesToggle<cr>:echo ""<cr>
 
 
 " --------------------------
@@ -701,76 +558,5 @@ nnoremap <leader>fr  :set ft=ruby<cr>:echo "Установлен тип файл
 
 " Переключение true/false
 :nore <expr> <leader><leader> expand('<cword>') ==# 'true' ? "ciwfalse\<Esc>" :
-      \ (expand('<cword>') ==# 'false' ? "ciwtrue\<Esc>" : '')
+  \ (expand('<cword>') ==# 'false' ? "ciwtrue\<Esc>" : '')
 
-
-" Строка состояния
-
-function! FileSize()
-    let bytes = getfsize(expand("%:p"))
-    if bytes <= 0
-        return "-"
-    endif
-    if bytes < 1024
-        return bytes . " B"
-    else
-        return (bytes / 1024) . " K"
-    endif
-endfunction
-
-
-" Задаем собственные функции для назначения имен заголовкам табов -->
-function! MyTabLine()
-    let tabline = ''
-    " Формируем tabline для каждой вкладки -->
-        for i in range(tabpagenr('$'))
-            " Подсвечиваем заголовок выбранной в данный момент вкладки.
-            if i + 1 == tabpagenr()
-                let tabline .= '%#TabLineSel#'
-            else
-                let tabline .= '%#TabLine#'
-            endif
-            " Устанавливаем номер вкладки
-            let tabline .= '%' . (i + 1) . 'T'
-            " Получаем имя вкладки
-            let tabline .= ' %{MyTabLabel(' . (i + 1) . ')} |'
-        endfor
-    " Формируем tabline для каждой вкладки <--
-    " Заполняем лишнее пространство
-    let tabline .= '%#TabLineFill#%T'
-    " Выровненная по правому краю кнопка закрытия вкладки
-    if tabpagenr('$') > 1
-        let tabline .= '%=%#TabLine#%999XX'
-    endif
-    return tabline
-endfunction
-
-function! MyTabLabel(n)
-    let label = ''
-    let buflist = tabpagebuflist(a:n)
-    " Имя файла и номер вкладки -->
-        let label = substitute(bufname(buflist[tabpagewinnr(a:n) - 1]), '.*/', '', '')
-        if label == ''
-            let label = '[No Name]'
-        endif
-        let label .= ' (' . a:n . ')'
-    " Имя файла и номер вкладки <--
-    " Определяем, есть ли во вкладке хотя бы один
-    " модифицированный буфер.
-    " -->
-        for i in range(len(buflist))
-            if getbufvar(buflist[i], "&modified")
-                let label = '[+] ' . label
-                break
-            endif
-        endfor
-    " <--
-    return label
-endfunction
-
-function! MyGuiTabLabel()
-    return '%{MyTabLabel(' . tabpagenr() . ')}'
-endfunction
-
-set tabline=%!MyTabLine()
-set guitablabel=%!MyGuiTabLabel()
