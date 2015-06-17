@@ -1,10 +1,10 @@
 !.gitignore
 .DS_Store
-wiki/
-wiki_html/
-view/
 .indexer_files
 .netrwhist
-session.vim
 bundle/
+session.vim
 sessions/
+view/
+wiki/
+wiki-html/

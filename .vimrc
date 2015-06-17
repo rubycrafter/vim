@@ -68,6 +68,9 @@ let macvim_skip_cmd_opt_movement = 1
 " Включение подсветки синтаксиса
 syntax on
 
+" Длина строки подсветки синтаксиса
+"set synmaxcol=128
+
 " Отображение спецсимволов
 set list
 set listchars=tab:→→,trail:·,nbsp:·
@@ -304,9 +307,9 @@ if has("gui_running")
   " Подсвечивать текущую строку в GUI режиме
   set cursorline
 
-  " Подсветка длины строки в 80 символов
+  " Подсветка длины строки в 100 символов
   "execute 'set colorcolumn=' . join(range(81,335), ',')
-  set colorcolumn=81
+  set colorcolumn=101
 
   " Подсветка файла под курсором
   let NERDTreeHighlightCursorline=1
@@ -359,12 +362,21 @@ let g:indentLine_indentLevel = 20
 
 " VimWiki
 let wiki = {}
+let wiki.auto_export = 1
 let wiki.path = '~/.vim/wiki/'
-let wiki.nested_syntaxes = {'ruby': 'ruby', 'php': 'php', 'css': 'css', 'javascript': 'javascript', 'html': 'html', 'mysql': 'mysql'}
+let wiki.path_html = '~/.vim/wiki-html/'
+let wiki.template_path = '~/.vim/wiki/template/'
+let wiki.template_default = 'default'
+let wiki.template_ext = '.html'
+
 let g:vimwiki_list = [wiki]
 let g:vimwiki_camel_case = 0
 let g:vimwiki_browsers = ['google-chrome']
-let g:vimwiki_html_header_numbering = 2
+let g:vimwiki_list_ignore_newline = 0
+let g:vimwiki_html_header_numbering = 0
+let g:vimwiki_hl_headers = 1
+let g:vimwiki_use_mouse = 1
+let g:vimwiki_menu = ''
 
 " Автокоммит при сохранении wiki-файлов
 "function! s:commit_wiki()
@@ -476,7 +488,7 @@ if has('gui_macvim')
   imap <m-down> <esc><c-w><c-down>
   map <m-up> <c-w><up>
   imap <m-up> <esc><c-w><c-up>
-  map <m-left> <c-w><left>
+  noremap <m-left> <c-w><left>
   imap <m-left> <esc><c-w><c-left>
   map <m-right> <c-w><right>
   imap <m-right> <esc><c-w><c-right>
@@ -485,7 +497,7 @@ else
   imap <c-down> <esc><c-w><c-down>
   map <c-up> <c-w><up>
   imap <c-up> <esc><c-w><c-up>
-  map <c-left> <c-w><left>
+  noremap <c-left> <c-w><left>
   imap <c-left> <esc><c-w><c-left>
   map <c-right> <c-w><right>
   imap <c-right> <esc><c-w><c-right>
